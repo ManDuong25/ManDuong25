@@ -78,8 +78,8 @@
     <text x="-0.6" y="150" class="sans" font-size="16" font-weight="500" fill="#59636e">Software &amp; AI Engineer</text>
 
     <!-- Level row at bottom -->
-    <text x="-0.8" y="218" class="mono" font-size="12" font-weight="700" fill="#17692e">LVL.01<tspan font-weight="500" fill="#656d76" dx="14">EXP PROGRESS</tspan></text>
-    <text x="246" y="218" text-anchor="end" class="mono" font-size="12" font-weight="700" fill="#17692e">0%</text>
+    <text x="-0.8" y="218" class="mono" font-size="12" font-weight="700" fill="#17692e">LVL.01<tspan font-weight="500" fill="#656d76" dx="12">PROGRESS</tspan></text>
+    <text x="246" y="218" text-anchor="end" class="mono" font-size="12" font-weight="700" fill="#17692e">0 / 100 EXP</text>
     <g transform="translate(0, 228)">
       <rect x="0" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="18" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="36" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="54" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="72" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="90" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="108" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="126" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="144" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="162" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="180" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="198" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="216" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="234" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" />
     </g>

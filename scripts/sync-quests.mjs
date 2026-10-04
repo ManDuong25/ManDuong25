@@ -225,12 +225,16 @@ async function regenerateAllSVGs(state) {
     name: state.player.name,
     role: state.player.role,
     level: state.player.level,
+    currentExp: state.player.currentExp,
+    requiredExp: state.player.requiredExp,
     expPercent: state.player.expPercent
   });
   const heroLight = generateBannerSVG('light', {
     name: state.player.name,
     role: state.player.role,
     level: state.player.level,
+    currentExp: state.player.currentExp,
+    requiredExp: state.player.requiredExp,
     expPercent: state.player.expPercent
   });
 

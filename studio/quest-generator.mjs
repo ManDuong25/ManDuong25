@@ -69,12 +69,12 @@ function getThemeColors(theme = 'dark') {
 
 const defaultQuests = [
   {
-    id: 1, domain: 'GRIT', domainColor: 'accentAmber',
+    id: 1,
     title: 'Running 5 km',
     exp: '+50 EXP', expValue: 50, done: false
   },
   {
-    id: 2, domain: 'STUDY', domainColor: 'accentCyan',
+    id: 2,
     title: 'Learning English for 4 hours',
     exp: '+50 EXP', expValue: 50, done: false
   }
@@ -125,20 +125,17 @@ export function generateQuestTacticalSVG(theme = 'dark', custom = {}) {
           `}
         </g>
 
-        <!-- Domain Tag -->
-        <text x="30" y="2" class="mono" font-size="11.5" font-weight="700" fill="${colorTag}">[${q.domain}]</text>
-
-        <!-- Mission Title -->
-        <text x="100" y="2" class="sans" font-size="13.5" font-weight="600" fill="${isDone ? colors.textMuted : colors.textPrimary}">${q.title}</text>
+        <!-- Mission Title (Enlarged, clean without tags) -->
+        <text x="32" y="3.5" class="sans" font-size="16" font-weight="700" fill="${isDone ? colors.textMuted : colors.textPrimary}">${q.title}</text>
 
         <!-- Tactical State Button on Right: Chưa bấm vs Bấm rồi -->
         <g transform="translate(${btnX}, -13)">
           ${isDone ? `
             <rect width="${btnW}" height="${btnH}" rx="6" fill="${colors.btnDoneBg}" stroke="${colors.btnDoneBorder}" stroke-width="1.2" />
-            <text x="${btnW / 2}" y="16" class="mono" font-size="11" font-weight="700" text-anchor="middle" fill="${colors.accentGreen}">✓ DONE</text>
+            <text x="${btnW / 2}" y="16" class="mono" font-size="11.5" font-weight="700" text-anchor="middle" fill="${colors.accentGreen}">✓ DONE</text>
           ` : `
             <rect width="${btnW}" height="${btnH}" rx="6" fill="${colors.btnPendingBg}" stroke="${colors.btnPendingBorder}" stroke-width="1" />
-            <text x="${btnW / 2}" y="16" class="mono" font-size="11" font-weight="700" text-anchor="middle" fill="${colors.accentCyan}">${q.exp}</text>
+            <text x="${btnW / 2}" y="16" class="mono" font-size="11.5" font-weight="700" text-anchor="middle" fill="${colors.accentCyan}">${q.exp}</text>
           `}
         </g>
 
@@ -261,12 +258,8 @@ export function generateQuestCommandSVG(theme = 'dark', custom = {}) {
           `}
         </g>
 
-        <!-- Index & Domain -->
-        <text x="30" y="2" class="mono" font-size="11.5" font-weight="700" fill="${colors.textSubtle}">0${i + 1}</text>
-        <text x="56" y="2" class="mono" font-size="11.5" font-weight="700" fill="${colorTag}">[${q.domain}]</text>
-
         <!-- Mission Title -->
-        <text x="126" y="2" class="sans" font-size="13.5" font-weight="600" fill="${isDone ? colors.textMuted : colors.textPrimary}">${q.title}</text>
+        <text x="32" y="3.5" class="sans" font-size="16" font-weight="700" fill="${isDone ? colors.textMuted : colors.textPrimary}">${q.title}</text>
 
         <!-- Tactical State Button on Right: Chưa bấm vs Bấm rồi -->
         <g transform="translate(${btnX}, -13)">
