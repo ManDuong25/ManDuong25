@@ -363,6 +363,18 @@ export async function syncQuestsFromText(issueBody) {
   return state;
 }
 
+export async function updateReadmeCacheBuster(ts = Date.now()) {
+  const readmePath = path.join(ROOT_DIR, 'README.md');
+  try {
+    let content = await fs.readFile(readmePath, 'utf8');
+    content = content.replace(/(assets\/[a-zA-Z0-9_-]+\.svg)(\?v=\d+)?/g, `$1?v=${ts}`);
+    await fs.writeFile(readmePath, content, 'utf8');
+    console.log(`✨ Updated README.md cache buster: ?v=${ts}`);
+  } catch (err) {
+    console.warn('⚠️ Could not update README cache buster:', err.message);
+  }
+}
+
 async function regenerateAllSVGs(state) {
   const heroDark = generateBannerSVG('dark', {
     name: state.player.name,
@@ -395,6 +407,8 @@ async function regenerateAllSVGs(state) {
 
   await fs.writeFile(path.join(ASSETS_DIR, 'quests-dark.svg'), questDark, 'utf8');
   await fs.writeFile(path.join(ASSETS_DIR, 'quests-light.svg'), questLight, 'utf8');
+
+  await updateReadmeCacheBuster();
 }
 
 // Allow standalone run from CLI
