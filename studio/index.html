@@ -575,9 +575,9 @@
 
     <!-- View Mode Switcher -->
     <div class="tool-group">
-      <button class="mode-tab active" id="btnViewBanner" onclick="setViewMode('banner')">🏷️ Profile Hero</button>
-      <button class="mode-tab" id="btnViewBento" onclick="setViewMode('quest-bento')">⚔️ Concept 1: Bento Quest Board</button>
-      <button class="mode-tab" id="btnViewSplit" onclick="setViewMode('quest-split')">📡 Concept 2: Split Telemetry HUD</button>
+      <button class="mode-tab" id="btnViewBanner" onclick="setViewMode('banner')">🏷️ Profile Hero</button>
+      <button class="mode-tab active" id="btnViewTactical" onclick="setViewMode('quest-tactical')">⚔️ Concept 1: Tactical HUD (Khuyên dùng)</button>
+      <button class="mode-tab" id="btnViewCommand" onclick="setViewMode('quest-command')">📡 Concept 2: Command Deck</button>
     </div>
 
     <div class="header-actions">
@@ -736,7 +736,7 @@
 
   <script>
     let currentTheme = 'dark';
-    let currentView = 'quest-bento'; // default to new Daily Quest view for user convenience!
+    let currentView = 'quest-tactical'; // default to new Tactical Daily Quest HUD!
     let currentTool = 'annotate'; // Default directly to annotate mode for instant ease of use!
     let annotations = [];
     let customData = {
@@ -785,6 +785,12 @@
         });
         const svg = await res.text();
         document.getElementById('svgContainer').innerHTML = svg;
+        const svgEl = document.querySelector('#svgContainer svg');
+        if (svgEl) {
+          const h = svgEl.getAttribute('height') || '250';
+          document.getElementById('canvasWrapper').style.height = h + 'px';
+          document.getElementById('svgContainer').style.height = h + 'px';
+        }
       } catch (err) {
         console.error("Error rendering banner:", err);
       }
@@ -793,12 +799,8 @@
     function setViewMode(view) {
       currentView = view;
       document.getElementById('btnViewBanner').classList.toggle('active', view === 'banner');
-      document.getElementById('btnViewBento').classList.toggle('active', view === 'quest-bento');
-      document.getElementById('btnViewSplit').classList.toggle('active', view === 'quest-split');
-      
-      const h = (view === 'quest-bento') ? 290 : 280;
-      document.getElementById('canvasWrapper').style.height = h + 'px';
-      document.getElementById('svgContainer').style.height = h + 'px';
+      document.getElementById('btnViewTactical').classList.toggle('active', view === 'quest-tactical');
+      document.getElementById('btnViewCommand').classList.toggle('active', view === 'quest-command');
       renderBanner();
     }
 

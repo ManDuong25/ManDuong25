@@ -1,0 +1,35 @@
+{
+  "player": {
+    "name": "DƯƠNG CÔNG MÃN",
+    "role": "Software & AI Engineer",
+    "level": "01",
+    "baseExp": 0,
+    "totalExp": 0,
+    "currentExp": 0,
+    "requiredExp": 100,
+    "expPercent": "0%",
+    "streak": 0,
+    "lastResetDate": "2026-10-04",
+    "lastUpdated": "2026-10-04T14:31:01.969Z"
+  },
+  "quests": [
+    {
+      "id": 1,
+      "domain": "GRIT",
+      "domainColor": "accentAmber",
+      "title": "Running 5 km",
+      "exp": "+50 EXP",
+      "expValue": 50,
+      "done": false
+    },
+    {
+      "id": 2,
+      "domain": "STUDY",
+      "domainColor": "accentCyan",
+      "title": "Learning English for 4 hours",
+      "exp": "+50 EXP",
+      "expValue": 50,
+      "done": false
+    }
+  ]
+}

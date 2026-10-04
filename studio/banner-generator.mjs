@@ -51,7 +51,7 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
     handle: custom.handle || '',
     role: custom.role || 'Software & AI Engineer',
     level: custom.level || '01',
-    expPercent: custom.expPercent || '12%',
+    expPercent: custom.expPercent !== undefined ? custom.expPercent : '0%',
   };
   const name = esc(data.name), handle = esc(data.handle), role = esc(data.role);
   const level = esc(data.level), exp = esc(data.expPercent);
@@ -197,11 +197,18 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
     <text x="-0.8" y="${R_LVL}" class="mono" font-size="12" font-weight="700" fill="${colors.accentGreen}">LVL.${level}<tspan font-weight="500" fill="${colors.textSubtle}" dx="14">EXP PROGRESS</tspan></text>
     <text x="246" y="${R_LVL}" text-anchor="end" class="mono" font-size="12" font-weight="700" fill="${colors.accentGreen}">${exp}</text>
     <g transform="translate(0, ${R_LVL + 10})">
-      ${Array.from({ length: 14 }).map((_, i) => {
-        if (i === 0) return `<rect x="${i * 18}" y="0" width="13" height="7" rx="2" fill="${colors.accentGreen}" opacity="0.9" />`;
-        if (i === 1) return `<rect class="leading-segment" x="${i * 18}" y="0" width="13" height="7" rx="2" fill="${colors.accentGreen}" filter="url(#softGlow)" />`;
-        return `<rect x="${i * 18}" y="0" width="13" height="7" rx="2" fill="${colors.slotBg}" />`;
-      }).join('')}
+      ${(() => {
+        const pct = Math.max(0, Math.min(100, parseInt(exp) || 0));
+        const filledCount = Math.round((pct / 100) * 14);
+        return Array.from({ length: 14 }).map((_, i) => {
+          if (i < filledCount - 1) {
+            return `<rect x="${i * 18}" y="0" width="13" height="7" rx="2" fill="${colors.accentGreen}" opacity="0.9" />`;
+          } else if (i === filledCount - 1 && filledCount > 0) {
+            return `<rect class="leading-segment" x="${i * 18}" y="0" width="13" height="7" rx="2" fill="${colors.accentGreen}" filter="url(#softGlow)" />`;
+          }
+          return `<rect x="${i * 18}" y="0" width="13" height="7" rx="2" fill="${colors.slotBg}" />`;
+        }).join('');
+      })()}
     </g>
   </g>
 

@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { generateBannerSVG } from './banner-generator.mjs';
-import { generateQuestBentoSVG, generateQuestSplitSVG } from './quest-generator.mjs';
+import { generateQuestTacticalSVG, generateQuestCommandSVG } from './quest-generator.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = 4200;
@@ -62,13 +62,13 @@ const server = http.createServer(async (req, res) => {
       try {
         const customData = body ? JSON.parse(body) : {};
         const theme = url.searchParams.get('theme') || 'dark';
-        const view = url.searchParams.get('view') || 'banner';
+        const view = url.searchParams.get('view') || 'quest-tactical';
 
         let svg = '';
-        if (view === 'quest-bento') {
-          svg = generateQuestBentoSVG(theme, customData);
-        } else if (view === 'quest-split') {
-          svg = generateQuestSplitSVG(theme, customData);
+        if (view === 'quest-command') {
+          svg = generateQuestCommandSVG(theme, customData);
+        } else if (view === 'quest-tactical' || view === 'quest') {
+          svg = generateQuestTacticalSVG(theme, customData);
         } else {
           svg = generateBannerSVG(theme, customData);
         }
@@ -108,11 +108,21 @@ const server = http.createServer(async (req, res) => {
     req.on('end', async () => {
       try {
         const customData = body ? JSON.parse(body) : {};
+        const view = url.searchParams.get('view') || 'quest-tactical';
         await fs.mkdir(ASSETS_DIR, { recursive: true });
-        const lightSvg = generateBannerSVG('light', customData);
-        const darkSvg = generateBannerSVG('dark', customData);
-        await fs.writeFile(path.join(ASSETS_DIR, 'hero-light.svg'), lightSvg, 'utf8');
-        await fs.writeFile(path.join(ASSETS_DIR, 'hero-dark.svg'), darkSvg, 'utf8');
+
+        if (view === 'quest-tactical' || view === 'quest-command' || view === 'quest') {
+          const fn = view === 'quest-command' ? generateQuestCommandSVG : generateQuestTacticalSVG;
+          const lightSvg = fn('light', customData);
+          const darkSvg = fn('dark', customData);
+          await fs.writeFile(path.join(ASSETS_DIR, 'quests-light.svg'), lightSvg, 'utf8');
+          await fs.writeFile(path.join(ASSETS_DIR, 'quests-dark.svg'), darkSvg, 'utf8');
+        } else {
+          const lightSvg = generateBannerSVG('light', customData);
+          const darkSvg = generateBannerSVG('dark', customData);
+          await fs.writeFile(path.join(ASSETS_DIR, 'hero-light.svg'), lightSvg, 'utf8');
+          await fs.writeFile(path.join(ASSETS_DIR, 'hero-dark.svg'), darkSvg, 'utf8');
+        }
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true }));
       } catch (err) {
