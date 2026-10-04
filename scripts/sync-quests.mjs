@@ -1,6 +1,6 @@
 /**
  * Daily Quest Sync Engine & RPG Level Progression
- * Parses Issue checklist, computes EXP & Level, manages Streaks, handles Vietnam Timezone midnight resets.
+ * Parses Issue checklist, computes EXP & Level, tracks timestamps & quest-log.json, manages Streaks, handles midnight resets.
  */
 
 import fs from 'node:fs/promises';
@@ -14,6 +14,7 @@ import { generateQuestTacticalSVG } from '../studio/quest-generator.mjs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.join(__dirname, '..');
 const STATE_FILE = path.join(ROOT_DIR, 'data', 'player-state.json');
+const LOG_FILE = path.join(ROOT_DIR, 'data', 'quest-log.json');
 const ASSETS_DIR = path.join(ROOT_DIR, 'assets');
 
 /**
@@ -21,6 +22,19 @@ const ASSETS_DIR = path.join(ROOT_DIR, 'assets');
  */
 export function getTodayDateVN() {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Ho_Chi_Minh' }).format(new Date());
+}
+
+/**
+ * Returns current time in Vietnam (UTC+7) in HH:mm or HH:mm:ss format
+ */
+export function getNowTimeVN(includeSeconds = false) {
+  return new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Asia/Ho_Chi_Minh',
+    hour: '2-digit',
+    minute: '2-digit',
+    ...(includeSeconds ? { second: '2-digit' } : {}),
+    hour12: false
+  }).format(new Date());
 }
 
 /**
@@ -33,13 +47,54 @@ export function getDaysDiff(dateStr1, dateStr2) {
 }
 
 /**
+ * Matches quest in issue checklist, supporting flexible spelling / Vietnamese aliases
+ */
+export function getQuestRegex(title) {
+  if (title.toLowerCase().includes('running') || title.toLowerCase().includes('chạy bộ')) {
+    return /^[ \t]*-[ \t]*\[([xX ])\][ \t]+.*(?:running|chạy bộ)[ \t]*3[ \t]*km/im;
+  }
+  const escaped = title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`^[\\t ]*-[\\t ]*\\[([xX ])\\][\\t ]+.*${escaped}`, 'im');
+}
+
+/**
+ * Loads or initializes the quest history log file
+ */
+export async function readQuestLog() {
+  try {
+    const raw = await fs.readFile(LOG_FILE, 'utf8');
+    return JSON.parse(raw);
+  } catch {
+    return {
+      meta: {
+        player: 'DƯƠNG CÔNG MÃN',
+        timezone: 'Asia/Ho_Chi_Minh',
+        totalCompletedLifetime: 0,
+        createdAt: new Date().toISOString(),
+        lastUpdated: new Date().toISOString()
+      },
+      dailyLogs: {},
+      history: []
+    };
+  }
+}
+
+/**
+ * Saves quest log file
+ */
+export async function saveQuestLog(logData) {
+  await fs.writeFile(LOG_FILE, JSON.stringify(logData, null, 2), 'utf8');
+}
+
+/**
  * Handles daily midnight rollover:
  * - Banks yesterday's earned EXP into lifetime baseExp
  * - Preserves streak ONLY if yesterday ALL tasks were cleared
  * - If yesterday was incomplete or day(s) were missed: MẤT STREAK (streak = 0)
- * - Resets quests to uncompleted (done: false)
+ * - Resets quests to uncompleted (done: false, completedAt: null, completedTime: null)
+ * - Logs rollover event to quest-log.json
  */
-export function processDateRollover(state, todayVN, options = {}) {
+export function processDateRollover(state, todayVN, questLog, options = {}) {
   const lastDate = state.player.lastActiveDate;
   if (!lastDate) {
     state.player.lastActiveDate = todayVN;
@@ -62,8 +117,6 @@ export function processDateRollover(state, todayVN, options = {}) {
   state.player.baseExp = (state.player.baseExp || 0) + yesterdayYield;
 
   // Streak Verification:
-  // If consecutive day (diffDays === 1 or forced) AND yesterday ALL cleared -> streak preserved!
-  // Otherwise (incomplete tasks or missed days) -> MẤT STREAK!
   if ((diffDays === 1 || options.force) && allClearedYesterday) {
     console.log(`🔥 All tasks were cleared yesterday! Streak preserved at: ${state.player.streak}`);
   } else {
@@ -71,9 +124,30 @@ export function processDateRollover(state, todayVN, options = {}) {
     state.player.streak = 0;
   }
 
+  // Log rollover event
+  const nowISO = new Date().toISOString();
+  const timeVN = getNowTimeVN(true);
+  questLog.history.push({
+    id: `evt_${Date.now()}_rollover`,
+    timestamp: nowISO,
+    timeVN,
+    dateVN: todayVN,
+    action: 'MIDNIGHT_RESET',
+    fromDay: lastDate,
+    toDay: todayVN,
+    diffDays,
+    yesterdayYield,
+    allClearedYesterday,
+    streakResult: state.player.streak,
+    totalExpAfterRoll: state.player.baseExp
+  });
+  questLog.meta.lastUpdated = nowISO;
+
   // Reset all daily quests for the fresh day
   for (const q of state.quests) {
     q.done = false;
+    q.completedAt = null;
+    q.completedTime = null;
   }
 
   state.player.streakCountedForDate = null;
@@ -82,26 +156,70 @@ export function processDateRollover(state, todayVN, options = {}) {
 }
 
 /**
- * Applies issue checklist state, calculates EXP & streak, updates level
+ * Applies issue checklist state, records timestamps, calculates EXP & streak, updates quest-log.json
  */
-export function applyQuestsChecklist(state, issueBody, todayVN) {
-  // 1. Parse checkboxes from issue body
+export function applyQuestsChecklist(state, issueBody, todayVN, questLog) {
+  const nowISO = new Date().toISOString();
+  const timeShortVN = getNowTimeVN(false); // e.g. "06:30"
+  const timeFullVN = getNowTimeVN(true);   // e.g. "06:30:15"
+
+  // 1. Parse checkboxes and stamp completion time
   for (const quest of state.quests) {
-    const escaped = quest.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`^[\\t ]*-[\\t ]*\\[([xX ])\\][\\t ]+.*${escaped}`, 'im');
+    const regex = getQuestRegex(quest.title);
     const match = issueBody.match(regex);
-    if (match) {
-      quest.done = match[1].trim().toLowerCase() === 'x';
+    const isNowDone = match ? match[1].trim().toLowerCase() === 'x' : false;
+    const wasDone = !!quest.done;
+
+    if (!wasDone && isNowDone) {
+      // Newly checked -> record completion time
+      quest.done = true;
+      quest.completedAt = nowISO;
+      quest.completedTime = timeShortVN;
+
+      questLog.meta.totalCompletedLifetime = (questLog.meta.totalCompletedLifetime || 0) + 1;
+      questLog.meta.lastUpdated = nowISO;
+      questLog.history.push({
+        id: `evt_${Date.now()}_${quest.id}`,
+        timestamp: nowISO,
+        timeVN: timeFullVN,
+        dateVN: todayVN,
+        action: 'QUEST_COMPLETED',
+        questId: quest.id,
+        questTitle: quest.title,
+        expEarned: quest.expValue || 50
+      });
+      console.log(`⏱️ Quest [${quest.title}] completed at ${timeShortVN} (${timeFullVN} VN)`);
+    } else if (wasDone && !isNowDone) {
+      // Unticked -> revert timestamp
+      quest.done = false;
+      quest.completedAt = null;
+      quest.completedTime = null;
+
+      questLog.meta.totalCompletedLifetime = Math.max(0, (questLog.meta.totalCompletedLifetime || 1) - 1);
+      questLog.meta.lastUpdated = nowISO;
+      questLog.history.push({
+        id: `evt_${Date.now()}_${quest.id}`,
+        timestamp: nowISO,
+        timeVN: timeFullVN,
+        dateVN: todayVN,
+        action: 'QUEST_UNCHECKED',
+        questId: quest.id,
+        questTitle: quest.title,
+        expDeducted: quest.expValue || 50
+      });
+      console.log(`↩️ Quest [${quest.title}] unticked at ${timeShortVN}`);
+    } else if (wasDone && isNowDone) {
+      // Maintained checked -> keep existing completedAt / completedTime!
+      quest.done = true;
     } else {
       quest.done = false;
     }
   }
 
-  // 2. Check today completion
+  // 2. Check today completion & streak
   const completedToday = state.quests.filter(q => q.done);
   const allClearedToday = state.quests.length > 0 && completedToday.length === state.quests.length;
 
-  // Streak handling:
   if (allClearedToday) {
     if (state.player.streakCountedForDate !== todayVN) {
       state.player.streak = (state.player.streak || 0) + 1;
@@ -109,7 +227,6 @@ export function applyQuestsChecklist(state, issueBody, todayVN) {
       console.log(`🔥 All daily quests cleared! Streak increased to ${state.player.streak} DAYS!`);
     }
   } else {
-    // If unticked after being counted today
     if (state.player.streakCountedForDate === todayVN) {
       state.player.streak = Math.max(0, (state.player.streak || 1) - 1);
       state.player.streakCountedForDate = null;
@@ -126,7 +243,28 @@ export function applyQuestsChecklist(state, issueBody, todayVN) {
   state.player.currentExp = progress.currentExp;
   state.player.requiredExp = progress.requiredExp;
   state.player.expPercent = progress.expPercent;
-  state.player.lastUpdated = new Date().toISOString();
+  state.player.lastUpdated = nowISO;
+
+  // 4. Update daily snapshot in questLog
+  questLog.dailyLogs[todayVN] = {
+    date: todayVN,
+    quests: state.quests.map(q => ({
+      id: q.id,
+      title: q.title,
+      done: q.done,
+      completedAt: q.completedAt || null,
+      completedTime: q.completedTime || null,
+      expValue: q.expValue || 50
+    })),
+    clearedCount: completedToday.length,
+    totalQuests: state.quests.length,
+    allCleared: allClearedToday,
+    dailyYield,
+    streak: state.player.streak,
+    level: state.player.level,
+    totalExp: state.player.totalExp,
+    lastUpdated: nowISO
+  };
 
   return { completedToday, allClearedToday, dailyYield };
 }
@@ -139,7 +277,7 @@ export function resetGitHubIssue() {
     const repo = process.env.GITHUB_REPOSITORY || 'ManDuong25/ManDuong25';
     const issueBody = `### ⚔️ Daily Quest Log
 
-- [ ] Running 5 km (+50 EXP)
+- [ ] Running 3 km (+50 EXP)
 - [ ] Learning English for 4 hours (+50 EXP)
 
 ---
@@ -163,10 +301,11 @@ export async function resetDailyQuests(force = false) {
   console.log('🌅 Running Midnight Daily Quest Reset (Vietnam Time)...');
   const rawState = await fs.readFile(STATE_FILE, 'utf8');
   const state = JSON.parse(rawState);
+  const questLog = await readQuestLog();
   const todayVN = getTodayDateVN();
 
   // Perform date rollover
-  processDateRollover(state, todayVN, { force: true });
+  processDateRollover(state, todayVN, questLog, { force: true });
 
   // Update totalExp & level with new baseExp
   state.player.totalExp = state.player.baseExp || 0;
@@ -183,8 +322,10 @@ export async function resetDailyQuests(force = false) {
   // Regenerate all SVGs
   await regenerateAllSVGs(state);
 
-  // Save updated state
+  // Save updated state and log
   await fs.writeFile(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
+  await saveQuestLog(questLog);
+
   console.log(`✅ Midnight reset finished! Streak: ${state.player.streak} | Base EXP: ${state.player.baseExp} | Level: ${state.player.level}`);
   return state;
 }
@@ -197,26 +338,28 @@ export async function syncQuestsFromText(issueBody) {
 
   const rawState = await fs.readFile(STATE_FILE, 'utf8');
   const state = JSON.parse(rawState);
+  const questLog = await readQuestLog();
   const todayVN = getTodayDateVN();
 
   // If a new day has arrived and reset hasn't executed yet, rollover first!
-  const rolledOver = processDateRollover(state, todayVN);
+  const rolledOver = processDateRollover(state, todayVN, questLog);
   if (rolledOver) {
     resetGitHubIssue();
   }
 
-  // Apply checklist changes
-  const { completedToday, dailyYield } = applyQuestsChecklist(state, issueBody, todayVN);
+  // Apply checklist changes & track timestamps
+  const { completedToday, dailyYield } = applyQuestsChecklist(state, issueBody, todayVN, questLog);
 
   console.log(`📊 Progress calculated: Level ${state.player.level} | EXP ${state.player.currentExp}/${state.player.requiredExp} (${state.player.expPercent}) | Streak: ${state.player.streak} | Cleared: ${completedToday.length}/${state.quests.length}`);
 
   // Regenerate SVGs
   await regenerateAllSVGs(state);
 
-  // Save state
+  // Save state and quest-log
   await fs.writeFile(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
+  await saveQuestLog(questLog);
 
-  console.log('✅ All assets updated & synced successfully!');
+  console.log('✅ All assets & quest-log.json updated successfully!');
   return state;
 }
 
@@ -268,7 +411,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
       } catch {
         issueBody = `
 ### ⚔️ Daily Quest Log
-- [ ] Running 5 km (+50 EXP)
+- [ ] Running 3 km (+50 EXP)
 - [ ] Learning English for 4 hours (+50 EXP)
         `;
       }

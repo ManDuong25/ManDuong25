@@ -74,13 +74,13 @@
         </g>
 
         <!-- Mission Title (Enlarged, clean without tags) -->
-        <text x="32" y="3.5" class="sans" font-size="16" font-weight="700" fill="#e6edf3">Running 5 km</text>
+        <text x="32" y="3.5" class="sans" font-size="16" font-weight="700" fill="#e6edf3">Running 3 km</text>
 
-        <!-- Tactical State Button on Right: Chưa bấm vs Bấm rồi -->
-        <g transform="translate(454, -13)">
+        <!-- Tactical State Button on Right: Chưa bấm vs Bấm rồi có timestamp -->
+        <g transform="translate(452, -13)">
           
-            <rect width="86" height="24" rx="6" fill="rgba(255, 255, 255, 0.04)" stroke="#30363d" stroke-width="1" />
-            <text x="43" y="16" class="mono" font-size="11.5" font-weight="700" text-anchor="middle" fill="#39c5cf">+50 EXP</text>
+            <rect width="88" height="24" rx="6" fill="rgba(255, 255, 255, 0.04)" stroke="#30363d" stroke-width="1" />
+            <text x="44" y="16" class="mono" font-size="11.5" font-weight="700" text-anchor="middle" fill="#39c5cf">+50 EXP</text>
           
         </g>
 
@@ -100,11 +100,11 @@
         <!-- Mission Title (Enlarged, clean without tags) -->
         <text x="32" y="3.5" class="sans" font-size="16" font-weight="700" fill="#e6edf3">Learning English for 4 hours</text>
 
-        <!-- Tactical State Button on Right: Chưa bấm vs Bấm rồi -->
-        <g transform="translate(454, -13)">
+        <!-- Tactical State Button on Right: Chưa bấm vs Bấm rồi có timestamp -->
+        <g transform="translate(452, -13)">
           
-            <rect width="86" height="24" rx="6" fill="rgba(255, 255, 255, 0.04)" stroke="#30363d" stroke-width="1" />
-            <text x="43" y="16" class="mono" font-size="11.5" font-weight="700" text-anchor="middle" fill="#39c5cf">+50 EXP</text>
+            <rect width="88" height="24" rx="6" fill="rgba(255, 255, 255, 0.04)" stroke="#30363d" stroke-width="1" />
+            <text x="44" y="16" class="mono" font-size="11.5" font-weight="700" text-anchor="middle" fill="#39c5cf">+50 EXP</text>
           
         </g>
 

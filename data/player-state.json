@@ -16,17 +16,21 @@
   "quests": [
     {
       "id": 1,
-      "title": "Running 5 km",
+      "title": "Running 3 km",
       "exp": "+50 EXP",
       "expValue": 50,
-      "done": false
+      "done": false,
+      "completedAt": null,
+      "completedTime": null
     },
     {
       "id": 2,
       "title": "Learning English for 4 hours",
       "exp": "+50 EXP",
       "expValue": 50,
-      "done": false
+      "done": false,
+      "completedAt": null,
+      "completedTime": null
     }
   ]
 }
