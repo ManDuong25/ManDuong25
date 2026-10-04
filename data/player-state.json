@@ -4,13 +4,13 @@
     "role": "Software & AI Engineer",
     "level": "01",
     "baseExp": 0,
-    "totalExp": 0,
-    "currentExp": 0,
+    "totalExp": 50,
+    "currentExp": 50,
     "requiredExp": 100,
-    "expPercent": "0%",
+    "expPercent": "50%",
     "streak": 0,
     "lastResetDate": "2026-10-04",
-    "lastUpdated": "2026-10-04T14:31:01.969Z"
+    "lastUpdated": "2026-10-04T14:32:10.833Z"
   },
   "quests": [
     {
@@ -20,7 +20,7 @@
       "title": "Running 5 km",
       "exp": "+50 EXP",
       "expValue": 50,
-      "done": false
+      "done": true
     },
     {
       "id": 2,
