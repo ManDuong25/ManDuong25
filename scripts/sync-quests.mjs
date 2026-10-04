@@ -363,15 +363,23 @@ export async function syncQuestsFromText(issueBody) {
   return state;
 }
 
-export async function updateReadmeCacheBuster(ts = Date.now()) {
+export async function updateReadmeCacheBuster(customRef) {
   const readmePath = path.join(ROOT_DIR, 'README.md');
   try {
     let content = await fs.readFile(readmePath, 'utf8');
-    content = content.replace(/(assets\/[a-zA-Z0-9_-]+\.svg)(\?v=\d+)?/g, `$1?v=${ts}`);
+    let ref = customRef;
+    if (!ref) {
+      try {
+        ref = execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim();
+      } catch {
+        ref = Date.now().toString();
+      }
+    }
+    content = content.replace(/(https:\/\/raw\.githubusercontent\.com\/ManDuong25\/ManDuong25\/)[a-f0-9]+(\/assets\/)/g, `$1${ref}$2`);
     await fs.writeFile(readmePath, content, 'utf8');
-    console.log(`✨ Updated README.md cache buster: ?v=${ts}`);
+    console.log(`✨ Updated README.md ref: ${ref}`);
   } catch (err) {
-    console.warn('⚠️ Could not update README cache buster:', err.message);
+    console.warn('⚠️ Could not update README ref:', err.message);
   }
 }
 

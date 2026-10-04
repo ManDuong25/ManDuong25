@@ -57,5 +57,12 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add assets/ data/ README.md
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(sync): update daily quests & level progress [skip ci]" && git push)
+          git add assets/ data/
+          if ! git diff --staged --quiet; then
+            git commit -m "chore(sync): update daily quests & level progress [skip ci]"
+            SHA=$(git rev-parse HEAD)
+            sed -i -E "s|https://raw\.githubusercontent\.com/ManDuong25/ManDuong25/[a-f0-9]+/assets/|https://raw.githubusercontent.com/ManDuong25/ManDuong25/${SHA}/assets/|g" README.md
+            git add README.md
+            git commit --amend --no-edit
+            git push
+          fi
