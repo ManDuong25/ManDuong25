@@ -49,8 +49,8 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
 
   const data = {
     name: custom.name || 'DƯƠNG CÔNG MÃN',
-    handle: custom.handle || 'ManDuong',
-    role: custom.role || 'Software & AI Engineer · Final-year CS @ SGU',
+    handle: custom.handle || '',
+    role: custom.role || 'Software & AI Engineer',
     slogan: custom.slogan || 'Life is just a game — just striving to be a little better every day.',
     level: custom.level || '01',
     expPercent: custom.expPercent || '12%',
@@ -186,8 +186,8 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
     <text x="-0.5" y="${R_WHOAMI}" class="mono" font-size="13.5" font-weight="600" fill="${colors.accentCyan}">manduong ~ $ whoami</text>
     <rect class="caret" x="160" y="${R_WHOAMI - 12}" width="8" height="14" fill="${colors.accentCyan}" />
 
-    <!-- Name + handle share ONE baseline (y=${R_NAME}) -->
-    <text x="-1.8" y="${R_NAME}"><tspan class="sans" font-size="32" font-weight="800" fill="${colors.textPrimary}" letter-spacing="-0.4">${name}</tspan><tspan class="sans" font-size="17" font-weight="600" fill="${colors.accentCyan}" dx="14">// ${handle}</tspan></text>
+    <!-- Name (headline) -->
+    <text x="-1.8" y="${R_NAME}"><tspan class="sans" font-size="32" font-weight="800" fill="${colors.textPrimary}" letter-spacing="-0.4">${name}</tspan>${handle ? `<tspan class="sans" font-size="17" font-weight="600" fill="${colors.accentCyan}" dx="14">// ${handle}</tspan>` : ''}</text>
 
     <!-- accent rule: optically centred between Name baseline and Role cap-top -->
     <rect x="0" y="${R_NAME + 14}" width="68" height="3.5" rx="1.75" fill="url(#accentG)" />
