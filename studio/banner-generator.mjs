@@ -7,16 +7,15 @@
  *  Canvas ........ 900 x 280
  *  Side margin ... 48px on both left and right (optical symmetry)
  *  Baseline grid . whoami: y=42 (highest element, top ink at y=32)
- *                  Name / Top Ink: y=92 (letter D cap-top at y=70.0)
- *                  Right headers: y=78 (top ink at y=70.0 -> exact 0.0px match with letter D)
- *                  Pulse dot: cy=73.5, r=3.5 (top ink at y=70.0)
- *                  Role: y=138
- *                  Level: y=180
- *                  Quote: y=238 (descenders to y=241, 39px bottom margin)
+ *                  Top Ink Bound: y=70.0 (letter D cap-top = ABOUT // ME = ATTRIBUTES // SYS.READY)
+ *                  Row 1: y=134 (Role in Col 1 & Focus in Col 2)
+ *                  Row 2: y=185 (Level Progress in Col 1 & Campus in Col 2)
+ *                  Bottom Bound: y=238.0 (Quote in Col 1 = Daily Compound in Col 2 = Radar LOGIC in Col 3)
+ *                  -> All 3 columns have EQUAL visual height (168px) and locked baselines!
  *  Columns ....... COL1 x=48   identity (whoami, name, role, level, quote)
  *                  COL2 x=475  facts (ABOUT // ME, FOCUS, CAMPUS, DAILY COMPOUND)
  *                  COL3        radar; axis x=776, right ink edge ≈ 850 (50px margin)
- *                              radar center cy=168, radius R=52, bottom label LOGIC y=237
+ *                              radar center cy=168, radius R=52, bottom label LOGIC y=238
  *  Type scale .... 32 / 17 / 15 / 14.5 / 13.5 / 12 / 11 (breslee1707 typography)
  *  Contrast ...... WCAG AA compliant on both dark and light GitHub themes
  */
@@ -35,15 +34,17 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
   const R_WHOAMI = 42;                            // whoami is alone at the top (highest)
   const R_NAME = 92;                              // primary name baseline (letter D cap-top at y = 70.0)
   const R_HEADER_RIGHT = 78;                      // right side aligns with cap-top of letter D (top ink at y = 70.0)
-  const R_ROLE = 138;                             // developer role baseline
-  const R_LVL = 180;                              // level and EXP progress baseline
-  const R_QUOTE = 238;                            // quote baseline (bottom margin 39px)
+
+  // Shared baseline grid for all columns (Equal Height & Harmonious Spacing)
+  const R_ROW1 = 134;                             // Role (Col 1) & Focus Value (Col 2)
+  const R_ROW2 = 185;                             // Level Progress (Col 1) & Campus Value (Col 2)
+  const R_ROW3 = 238;                             // Quote (Col 1), Daily Compound Value (Col 2), Radar LOGIC (Col 3)
 
   const COL1 = M;
   const COL2 = 475;                               // generous 43px gutter from quote, 26px gutter to radar
   const RADAR_R = 52;                             // outer hexagon radius (104px diameter)
   const RADAR_RX = +(RADAR_R * Math.cos(Math.PI / 6)).toFixed(2); // 45.03
-  const RADAR_CY = 168;                           // radar center (bottom label LOGIC lands on y = 237, locking with quote)
+  const RADAR_CY = 168;                           // radar center (bottom label LOGIC lands on y = 238, locking with quote)
   const COL3_AXIS = 776;                          // radar axis -> right ink edge ≈ 850px (50px margin)
   const COL3_LEFT = 682;                          // header + DESIGN label left edge
 
@@ -95,7 +96,7 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
   const axes = [0, 1, 2].map((i) => {
     const [x, y] = unit[i];
     const ax = +(x * R * axisExt).toFixed(2), ay = +(y * R * axisExt).toFixed(2);
-    return `<line x1="${-ax}" y1="${-ay}" x2="${ax}" y2="${ay}" stroke="${colors.gridLine}" stroke-width="1" />`;
+    return `<line x1="${-ax}" y1="${-ay}" x2="${ax}" y2="${ay}" stroke="${colors.gridLine}" stroke-width="1.2" />`;
   }).join('\n      ');
 
   // Axis labels: 11px caps, 9px clear of each vertex
@@ -106,12 +107,12 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
     lbl('CODE', 0, -(R + LBL_GAP), 'middle'),
     lbl('SYS', +(Rx + LBL_GAP).toFixed(2), +(-R / 2 + LBL_DY).toFixed(2), 'start'),
     lbl('AI', +(Rx + LBL_GAP).toFixed(2), +(R / 2 + LBL_DY).toFixed(2), 'start'),
-    lbl('LOGIC', 0, R + LBL_GAP + 8, 'middle'),
+    lbl('LOGIC', 0, R_ROW3 - RADAR_CY, 'middle'),
     lbl('GRIT', -+(Rx + LBL_GAP).toFixed(2), +(R / 2 + LBL_DY).toFixed(2), 'end'),
     lbl('DESIGN', -+(Rx + LBL_GAP).toFixed(2), +(-R / 2 + LBL_DY).toFixed(2), 'end'),
   ].join('\n      ');
 
-  // ---- Middle column: 3 fact blocks with 50px vertical rhythm ----------
+  // ---- Middle column: 3 fact blocks with synchronized baselines ----------
   const fact = (labelY, valY, label, value, cls, fill, dxLabel = -0.6, dxVal = -0.3, size = '14.5') => `
     <text x="${+(COL2 + dxLabel).toFixed(2)}" y="${labelY}" class="mono" font-size="11" font-weight="600" fill="${colors.textSubtle}">${label}</text>
     <text x="${+(COL2 + dxVal).toFixed(2)}" y="${valY}" class="${cls}" font-size="${size}" font-weight="700" fill="${fill}">${value}</text>`;
@@ -190,15 +191,15 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
     <text x="-1.8" y="${R_NAME}"><tspan class="sans" font-size="32" font-weight="800" fill="${colors.textPrimary}" letter-spacing="-0.4">${name}</tspan>${handle ? `<tspan class="sans" font-size="17" font-weight="600" fill="${colors.accentCyan}" dx="14">// ${handle}</tspan>` : ''}</text>
 
     <!-- accent rule: optically centred between Name baseline and Role cap-top -->
-    <rect x="0" y="${R_NAME + 14}" width="68" height="3.5" rx="1.75" fill="url(#accentG)" />
+    <rect x="0" y="${R_NAME + 13.5}" width="68" height="3.5" rx="1.75" fill="url(#accentG)" />
 
-    <!-- Role -->
-    <text x="-0.6" y="${R_ROLE}" class="sans" font-size="15" font-weight="500" fill="${colors.textMuted}">${role}</text>
+    <!-- Role (Row 1 shared baseline) -->
+    <text x="-0.6" y="${R_ROW1}" class="sans" font-size="15" font-weight="500" fill="${colors.textMuted}">${role}</text>
 
-    <!-- Level row; 14 slots x 18px pitch -> bar right edge = 247 = right edge of the % -->
-    <text x="-0.8" y="${R_LVL}" class="mono" font-size="12" font-weight="700" fill="${colors.accentGreen}">LVL.${level}<tspan font-weight="500" fill="${colors.textSubtle}" dx="14">EXP PROGRESS</tspan></text>
-    <text x="246" y="${R_LVL}" text-anchor="end" class="mono" font-size="12" font-weight="700" fill="${colors.accentGreen}">${exp}</text>
-    <g transform="translate(0, ${R_LVL + 9})">
+    <!-- Level row (Row 2 shared baseline) -->
+    <text x="-0.8" y="${R_ROW2}" class="mono" font-size="12" font-weight="700" fill="${colors.accentGreen}">LVL.${level}<tspan font-weight="500" fill="${colors.textSubtle}" dx="14">EXP PROGRESS</tspan></text>
+    <text x="246" y="${R_ROW2}" text-anchor="end" class="mono" font-size="12" font-weight="700" fill="${colors.accentGreen}">${exp}</text>
+    <g transform="translate(0, ${R_ROW2 + 9})">
       ${Array.from({ length: 14 }).map((_, i) => {
         if (i === 0) return `<rect x="${i * 18}" y="0" width="13" height="6" rx="2" fill="${colors.accentGreen}" opacity="0.9" />`;
         if (i === 1) return `<rect class="leading-segment" x="${i * 18}" y="0" width="13" height="6" rx="2" fill="${colors.accentGreen}" filter="url(#softGlow)" />`;
@@ -206,16 +207,16 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
       }).join('')}
     </g>
 
-    <!-- Philosophy quote -->
-    <text x="-1" y="${R_QUOTE}" class="sans" font-size="13.5" font-weight="500" font-style="italic" fill="${colors.textSubtle}">"${slogan}"</text>
+    <!-- Philosophy quote (Row 3 shared baseline) -->
+    <text x="-1" y="${R_ROW3}" class="sans" font-size="13.5" font-weight="500" font-style="italic" fill="${colors.textSubtle}">"${slogan}"</text>
   </g>
 
   <!-- ============ COL2 — facts (x=${COL2}); starts at y=${R_HEADER_RIGHT} aligned with letter D ============ -->
   <g>
     <text x="${COL2}" y="${R_HEADER_RIGHT}" class="mono" font-size="11" font-weight="700" fill="${colors.textMuted}">ABOUT<tspan font-weight="400" fill="${colors.textSubtle}" dx="8.8">//</tspan><tspan fill="${colors.accentGreen}" font-weight="600" dx="8.8">ME</tspan></text>
-    ${fact(106, 126, 'FOCUS', 'Software &amp; AI Engineering', 'sans', colors.textPrimary, -0.7, -0.3, '14.5')}
-    ${fact(156, 176, 'CAMPUS', 'Sài Gòn University', 'sans', colors.accentCyan, -0.5, -0.3, '14.5')}
-    ${fact(206, 226, 'DAILY COMPOUND', '1.01³⁶⁵ ≈ 37.8x', 'mono', colors.accentGreen, -0.5, -0.8, '14.5')}
+    ${fact(R_ROW1 - 20, R_ROW1, 'FOCUS', 'Software &amp; AI Engineering', 'sans', colors.textPrimary, -0.7, -0.3, '14.5')}
+    ${fact(R_ROW2 - 20, R_ROW2, 'CAMPUS', 'Sài Gòn University', 'sans', colors.accentCyan, -0.5, -0.3, '14.5')}
+    ${fact(R_ROW3 - 20, R_ROW3, 'DAILY COMPOUND', '1.01³⁶⁵ ≈ 37.8x', 'mono', colors.accentGreen, -0.5, -0.8, '14.5')}
   </g>
 
   <!-- ============ COL3 — radar (axis x=${COL3_AXIS}); starts at y=${R_HEADER_RIGHT} aligned with letter D ============ -->
