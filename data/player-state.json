@@ -4,14 +4,14 @@
     "role": "Software & AI Engineer",
     "level": "01",
     "baseExp": 0,
-    "totalExp": 0,
-    "currentExp": 0,
+    "totalExp": 50,
+    "currentExp": 50,
     "requiredExp": 100,
-    "expPercent": "0%",
+    "expPercent": "50%",
     "streak": 0,
     "lastActiveDate": "2026-10-05",
     "streakCountedForDate": null,
-    "lastUpdated": "2026-10-04T23:29:54.371Z"
+    "lastUpdated": "2026-10-04T23:37:03.795Z"
   },
   "quests": [
     {
@@ -19,9 +19,9 @@
       "title": "Running 3 km",
       "exp": "+50 EXP",
       "expValue": 50,
-      "done": false,
-      "completedAt": null,
-      "completedTime": null
+      "done": true,
+      "completedAt": "2026-10-04T23:37:03.795Z",
+      "completedTime": "06:37"
     },
     {
       "id": 2,
