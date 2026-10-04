@@ -1,0 +1,12 @@
+{
+  "name": "manduong25-profile",
+  "version": "1.0.0",
+  "description": "Custom GitHub profile for Duong Cong Man",
+  "type": "module",
+  "scripts": {
+    "studio": "node studio/server.mjs"
+  },
+  "dependencies": {
+    "puppeteer-core": "^25.12.0"
+  }
+}
