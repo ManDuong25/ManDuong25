@@ -25,8 +25,8 @@ async function render() {
   <head>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { background: #000; width: 900px; height: 220px; overflow: hidden; }
-      #banner { width: 900px; height: 220px; display: block; }
+      body { background: #000; width: 900px; height: 280px; overflow: hidden; }
+      #banner { width: 900px; height: 280px; display: block; }
     </style>
   </head>
   <body>
@@ -41,7 +41,7 @@ async function render() {
   const browser = await puppeteer.launch({
     executablePath: '/usr/bin/google-chrome',
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--headless=new'],
-    defaultViewport: { width: 900, height: 220, deviceScaleFactor: 2 }
+    defaultViewport: { width: 900, height: 280, deviceScaleFactor: 2 }
   });
 
   const page = await browser.newPage();

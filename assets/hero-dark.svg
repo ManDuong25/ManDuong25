@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 220" width="900" height="220" role="img" aria-label="DƯƠNG CÔNG MÃN // GitHub Profile">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" width="900" height="280" role="img" aria-label="DƯƠNG CÔNG MÃN // GitHub Profile">
   <title>DƯƠNG CÔNG MÃN — Profile Hero</title>
   <defs>
     <linearGradient id="bgG" x1="0" y1="0" x2="1" y2="1">
@@ -13,13 +13,13 @@
     </linearGradient>
 
     <radialGradient id="meshGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#39c5cf" stop-opacity="0.208" />
-      <stop offset="55%" stop-color="#a371f7" stop-opacity="0.096" />
+      <stop offset="0%" stop-color="#39c5cf" stop-opacity="0.26" />
+      <stop offset="55%" stop-color="#a371f7" stop-opacity="0.12" />
       <stop offset="100%" stop-color="#39c5cf" stop-opacity="0" />
     </radialGradient>
 
     <clipPath id="heroClip">
-      <rect x="0" y="0" width="900" height="220" rx="14" />
+      <rect x="0" y="0" width="900" height="280" rx="14" />
     </clipPath>
 
     <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
@@ -55,86 +55,86 @@
   </style>
 
   <!-- Single outer frame -->
-  <rect x="0.5" y="0.5" width="899" height="219" rx="14" fill="url(#bgG)" stroke="#30363d" stroke-width="1" />
+  <rect x="0.5" y="0.5" width="899" height="279" rx="14" fill="url(#bgG)" stroke="#30363d" stroke-width="1" />
 
   <g clip-path="url(#heroClip)">
     <!-- Ambient glow bridging COL2 and COL3, centred on the middle row axis -->
-    <ellipse cx="620" cy="113" rx="270" ry="140" fill="url(#meshGlow)" />
+    <ellipse cx="640" cy="140" rx="300" ry="170" fill="url(#meshGlow)" />
   </g>
 
   <!-- ============ COL1 — identity (x=48) ============ -->
   <g transform="translate(48, 0)">
-    <!-- whoami: HIGHEST element on the canvas (baseline y=35) -->
-    <text x="-0.5" y="35" class="mono" font-size="12" font-weight="600" fill="#39c5cf" textLength="136.8" lengthAdjust="spacing">manduong ~ $ whoami</text>
-    <rect class="caret" x="142.8" y="25" width="7" height="12" fill="#39c5cf" />
+    <!-- whoami: HIGHEST element on the canvas (baseline y=42, top ink at y=32.0) -->
+    <text x="-0.5" y="42" class="mono" font-size="13.5" font-weight="600" fill="#39c5cf">manduong ~ $ whoami</text>
+    <rect class="caret" x="160" y="30" width="8" height="14" fill="#39c5cf" />
 
-    <!-- Name + handle share ONE baseline (y=75) -->
-    <text x="-1.8" y="75"><tspan class="sans" font-size="28" font-weight="800" fill="#e6edf3" letter-spacing="-0.4">DƯƠNG CÔNG MÃN</tspan><tspan class="mono" font-size="14" font-weight="600" fill="#39c5cf" dx="14">// ManDuong</tspan></text>
+    <!-- Name + handle share ONE baseline (y=92) -->
+    <text x="-1.8" y="92"><tspan class="sans" font-size="32" font-weight="800" fill="#e6edf3" letter-spacing="-0.4">DƯƠNG CÔNG MÃN</tspan><tspan class="sans" font-size="17" font-weight="600" fill="#39c5cf" dx="14">// ManDuong</tspan></text>
 
     <!-- accent rule: optically centred between Name baseline and Role cap-top -->
-    <rect x="0" y="87.5" width="60" height="3" rx="1.5" fill="url(#accentG)" />
+    <rect x="0" y="106" width="68" height="3.5" rx="1.75" fill="url(#accentG)" />
 
     <!-- Role -->
-    <text x="-0.6" y="113" class="sans" font-size="14" font-weight="500" fill="#8b949e">Software &amp; AI Engineer · Final-year CS @ SGU</text>
+    <text x="-0.6" y="138" class="sans" font-size="15" font-weight="500" fill="#8b949e">Software &amp; AI Engineer · Final-year CS @ SGU</text>
 
-    <!-- Level row; 14 slots x 15px pitch → bar right edge = 206 = right edge of the % -->
-    <text x="-0.8" y="151" class="mono" font-size="10" font-weight="700" fill="#3fb950">LVL.01<tspan font-weight="500" fill="#848d97" dx="12">EXP PROGRESS</tspan></text>
-    <text x="206" y="151" text-anchor="end" class="mono" font-size="10" font-weight="700" fill="#3fb950">12%</text>
-    <g transform="translate(0, 158)">
-      <rect x="0" y="0" width="11" height="5" rx="1.5" fill="#3fb950" opacity="0.9" /><rect class="leading-segment" x="15" y="0" width="11" height="5" rx="1.5" fill="#3fb950" filter="url(#softGlow)" /><rect x="30" y="0" width="11" height="5" rx="1.5" fill="rgba(255, 255, 255, 0.08)" /><rect x="45" y="0" width="11" height="5" rx="1.5" fill="rgba(255, 255, 255, 0.08)" /><rect x="60" y="0" width="11" height="5" rx="1.5" fill="rgba(255, 255, 255, 0.08)" /><rect x="75" y="0" width="11" height="5" rx="1.5" fill="rgba(255, 255, 255, 0.08)" /><rect x="90" y="0" width="11" height="5" rx="1.5" fill="rgba(255, 255, 255, 0.08)" /><rect x="105" y="0" width="11" height="5" rx="1.5" fill="rgba(255, 255, 255, 0.08)" /><rect x="120" y="0" width="11" height="5" rx="1.5" fill="rgba(255, 255, 255, 0.08)" /><rect x="135" y="0" width="11" height="5" rx="1.5" fill="rgba(255, 255, 255, 0.08)" /><rect x="150" y="0" width="11" height="5" rx="1.5" fill="rgba(255, 255, 255, 0.08)" /><rect x="165" y="0" width="11" height="5" rx="1.5" fill="rgba(255, 255, 255, 0.08)" /><rect x="180" y="0" width="11" height="5" rx="1.5" fill="rgba(255, 255, 255, 0.08)" /><rect x="195" y="0" width="11" height="5" rx="1.5" fill="rgba(255, 255, 255, 0.08)" />
+    <!-- Level row; 14 slots x 18px pitch -> bar right edge = 247 = right edge of the % -->
+    <text x="-0.8" y="180" class="mono" font-size="12" font-weight="700" fill="#3fb950">LVL.01<tspan font-weight="500" fill="#848d97" dx="14">EXP PROGRESS</tspan></text>
+    <text x="246" y="180" text-anchor="end" class="mono" font-size="12" font-weight="700" fill="#3fb950">12%</text>
+    <g transform="translate(0, 189)">
+      <rect x="0" y="0" width="13" height="6" rx="2" fill="#3fb950" opacity="0.9" /><rect class="leading-segment" x="18" y="0" width="13" height="6" rx="2" fill="#3fb950" filter="url(#softGlow)" /><rect x="36" y="0" width="13" height="6" rx="2" fill="rgba(255, 255, 255, 0.08)" /><rect x="54" y="0" width="13" height="6" rx="2" fill="rgba(255, 255, 255, 0.08)" /><rect x="72" y="0" width="13" height="6" rx="2" fill="rgba(255, 255, 255, 0.08)" /><rect x="90" y="0" width="13" height="6" rx="2" fill="rgba(255, 255, 255, 0.08)" /><rect x="108" y="0" width="13" height="6" rx="2" fill="rgba(255, 255, 255, 0.08)" /><rect x="126" y="0" width="13" height="6" rx="2" fill="rgba(255, 255, 255, 0.08)" /><rect x="144" y="0" width="13" height="6" rx="2" fill="rgba(255, 255, 255, 0.08)" /><rect x="162" y="0" width="13" height="6" rx="2" fill="rgba(255, 255, 255, 0.08)" /><rect x="180" y="0" width="13" height="6" rx="2" fill="rgba(255, 255, 255, 0.08)" /><rect x="198" y="0" width="13" height="6" rx="2" fill="rgba(255, 255, 255, 0.08)" /><rect x="216" y="0" width="13" height="6" rx="2" fill="rgba(255, 255, 255, 0.08)" /><rect x="234" y="0" width="13" height="6" rx="2" fill="rgba(255, 255, 255, 0.08)" />
     </g>
 
     <!-- Philosophy quote -->
-    <text x="-1" y="189" class="sans" font-size="12" font-weight="500" font-style="italic" fill="#848d97">"Life is just a game — just striving to be a little better every day."</text>
+    <text x="-1" y="238" class="sans" font-size="13.5" font-weight="500" font-style="italic" fill="#848d97">"Life is just a game — just striving to be a little better every day."</text>
   </g>
 
-  <!-- ============ COL2 — facts (x=490); starts at y=62.5 aligned with letter D ============ -->
+  <!-- ============ COL2 — facts (x=475); starts at y=78 aligned with letter D ============ -->
   <g>
-    <text x="490" y="62.5" class="mono" font-size="9" font-weight="700" fill="#8b949e">ABOUT<tspan font-weight="400" fill="#848d97" dx="8.8">//</tspan><tspan fill="#3fb950" font-weight="600" dx="8.8">ME</tspan></text>
+    <text x="475" y="78" class="mono" font-size="11" font-weight="700" fill="#8b949e">ABOUT<tspan font-weight="400" fill="#848d97" dx="8.8">//</tspan><tspan fill="#3fb950" font-weight="600" dx="8.8">ME</tspan></text>
     
-    <text x="489.3" y="85" class="mono" font-size="9" font-weight="600" fill="#848d97">FOCUS</text>
-    <text x="489.7" y="101" class="sans" font-size="12" font-weight="700" fill="#e6edf3">Software &amp; AI Engineering</text>
+    <text x="474.3" y="106" class="mono" font-size="11" font-weight="600" fill="#848d97">FOCUS</text>
+    <text x="474.7" y="126" class="sans" font-size="14.5" font-weight="700" fill="#e6edf3">Software &amp; AI Engineering</text>
     
-    <text x="489.5" y="123" class="mono" font-size="9" font-weight="600" fill="#848d97">CAMPUS</text>
-    <text x="489.7" y="139" class="sans" font-size="12" font-weight="700" fill="#39c5cf">Sài Gòn University</text>
+    <text x="474.5" y="156" class="mono" font-size="11" font-weight="600" fill="#848d97">CAMPUS</text>
+    <text x="474.7" y="176" class="sans" font-size="14.5" font-weight="700" fill="#39c5cf">Sài Gòn University</text>
     
-    <text x="489.5" y="161" class="mono" font-size="9" font-weight="600" fill="#848d97">DAILY COMPOUND</text>
-    <text x="489.2" y="177" class="mono" font-size="12" font-weight="700" fill="#3fb950">1.01³⁶⁵ ≈ 37.8x</text>
+    <text x="474.5" y="206" class="mono" font-size="11" font-weight="600" fill="#848d97">DAILY COMPOUND</text>
+    <text x="474.2" y="226" class="mono" font-size="14.5" font-weight="700" fill="#3fb950">1.01³⁶⁵ ≈ 37.8x</text>
   </g>
 
-  <!-- ============ COL3 — radar (axis x=789); starts at y=62.5 aligned with letter D ============ -->
+  <!-- ============ COL3 — radar (axis x=776); starts at y=78 aligned with letter D ============ -->
   <g>
-    <!-- header: left edge = DESIGN label left edge (710); baseline = R_HEADER_RIGHT (62.5) -->
-    <circle cx="713" cy="59" r="3" fill="#3fb950" class="pulse-dot" />
-    <text x="721" y="62.5" class="mono" font-size="9" font-weight="700" fill="#8b949e">ATTRIBUTES<tspan font-weight="400" fill="#848d97" dx="8.8">//</tspan><tspan fill="#3fb950" font-weight="600" dx="8.8">SYS.READY</tspan></text>
+    <!-- header: left edge = DESIGN label left edge (682); baseline = R_HEADER_RIGHT (78) -->
+    <circle cx="685.5" cy="73.5" r="3.5" fill="#3fb950" class="pulse-dot" />
+    <text x="696" y="78" class="mono" font-size="11" font-weight="700" fill="#8b949e">ATTRIBUTES<tspan font-weight="400" fill="#848d97" dx="8.8">//</tspan><tspan fill="#3fb950" font-weight="600" dx="8.8">SYS.READY</tspan></text>
 
-    <g transform="translate(789, 136)">
-      <polygon points="0,-42 36.37,-21 36.37,21 0,42 -36.37,21 -36.37,-21" fill="none" stroke="rgba(255, 255, 255, 0.10)" stroke-width="1" />
-      <polygon points="0,-28 24.25,-14 24.25,14 0,28 -24.25,14 -24.25,-14" fill="none" stroke="rgba(255, 255, 255, 0.10)" stroke-width="0.8" stroke-dasharray="2 2" />
-      <polygon points="0,-14 12.12,-7 12.12,7 0,14 -12.12,7 -12.12,-7" fill="none" stroke="rgba(255, 255, 255, 0.10)" stroke-width="0.6" />
-      <line x1="0" y1="43.68" x2="0" y2="-43.68" stroke="rgba(255, 255, 255, 0.10)" stroke-width="0.8" />
-      <line x1="-37.82" y1="21.84" x2="37.82" y2="-21.84" stroke="rgba(255, 255, 255, 0.10)" stroke-width="0.8" />
-      <line x1="-37.82" y1="-21.84" x2="37.82" y2="21.84" stroke="rgba(255, 255, 255, 0.10)" stroke-width="0.8" />
+    <g transform="translate(776, 168)">
+      <polygon points="0,-52 45.03,-26 45.03,26 0,52 -45.03,26 -45.03,-26" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.2" />
+      <polygon points="0,-34.67 30.02,-17.33 30.02,17.33 0,34.67 -30.02,17.33 -30.02,-17.33" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="0.9" stroke-dasharray="3 3" />
+      <polygon points="0,-17.33 15.01,-8.67 15.01,8.67 0,17.33 -15.01,8.67 -15.01,-8.67" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="0.8" />
+      <line x1="0" y1="54.08" x2="0" y2="-54.08" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" />
+      <line x1="-46.83" y1="27.04" x2="46.83" y2="-27.04" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" />
+      <line x1="-46.83" y1="-27.04" x2="46.83" y2="27.04" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" />
 
       <!-- the real spider web: blooms ONCE from the centre dot -->
       <g class="spider-bloom-group">
-        <polygon points="0,-36.12 28.37,-16.38 33.46,19.32 0,36.12 -30.19,17.43 -25.46,-14.7" fill="rgba(57, 197, 207, 0.12)" stroke="#39c5cf" stroke-width="1.8" stroke-linejoin="round" filter="url(#softGlow)" />
-        <circle cx="0" cy="-36.12" r="2.2" fill="#39c5cf" />
-        <circle cx="28.37" cy="-16.38" r="2.2" fill="#39c5cf" />
-        <circle cx="33.46" cy="19.32" r="2.2" fill="#39c5cf" />
-        <circle cx="0" cy="36.12" r="2.2" fill="#39c5cf" />
-        <circle cx="-30.19" cy="17.43" r="2.2" fill="#39c5cf" />
-        <circle cx="-25.46" cy="-14.7" r="2.2" fill="#39c5cf" />
+        <polygon points="0,-44.72 35.12,-20.28 41.43,23.92 0,44.72 -37.37,21.58 -31.52,-18.2" fill="rgba(57, 197, 207, 0.14)" stroke="#39c5cf" stroke-width="2" stroke-linejoin="round" filter="url(#softGlow)" />
+        <circle cx="0" cy="-44.72" r="2.6" fill="#39c5cf" />
+        <circle cx="35.12" cy="-20.28" r="2.6" fill="#39c5cf" />
+        <circle cx="41.43" cy="23.92" r="2.6" fill="#39c5cf" />
+        <circle cx="0" cy="44.72" r="2.6" fill="#39c5cf" />
+        <circle cx="-37.37" cy="21.58" r="2.6" fill="#39c5cf" />
+        <circle cx="-31.52" cy="-18.2" r="2.6" fill="#39c5cf" />
       </g>
 
-      <circle cx="0" cy="0" r="2.6" fill="#3fb950" class="pulse-dot" />
+      <circle cx="0" cy="0" r="3" fill="#3fb950" class="pulse-dot" />
 
-      <text x="0" y="-49" class="mono" font-size="9" font-weight="700" text-anchor="middle" fill="#848d97">CODE</text>
-      <text x="43.37" y="-17.8" class="mono" font-size="9" font-weight="700" text-anchor="start" fill="#848d97">SYS</text>
-      <text x="43.37" y="24.2" class="mono" font-size="9" font-weight="700" text-anchor="start" fill="#848d97">AI</text>
-      <text x="0" y="55.5" class="mono" font-size="9" font-weight="700" text-anchor="middle" fill="#848d97">LOGIC</text>
-      <text x="-43.37" y="24.2" class="mono" font-size="9" font-weight="700" text-anchor="end" fill="#848d97">GRIT</text>
-      <text x="-43.37" y="-17.8" class="mono" font-size="9" font-weight="700" text-anchor="end" fill="#848d97">DESIGN</text>
+      <text x="0" y="-61" class="mono" font-size="11" font-weight="700" text-anchor="middle" fill="#848d97">CODE</text>
+      <text x="54.03" y="-22" class="mono" font-size="11" font-weight="700" text-anchor="start" fill="#848d97">SYS</text>
+      <text x="54.03" y="30" class="mono" font-size="11" font-weight="700" text-anchor="start" fill="#848d97">AI</text>
+      <text x="0" y="69" class="mono" font-size="11" font-weight="700" text-anchor="middle" fill="#848d97">LOGIC</text>
+      <text x="-54.03" y="30" class="mono" font-size="11" font-weight="700" text-anchor="end" fill="#848d97">GRIT</text>
+      <text x="-54.03" y="-22" class="mono" font-size="11" font-weight="700" text-anchor="end" fill="#848d97">DESIGN</text>
     </g>
   </g>
 </svg>
