@@ -4,6 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { generateBannerSVG } from './banner-generator.mjs';
+import { generateQuestBentoSVG, generateQuestSplitSVG } from './quest-generator.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = 4200;
@@ -60,8 +61,17 @@ const server = http.createServer(async (req, res) => {
     req.on('end', () => {
       try {
         const customData = body ? JSON.parse(body) : {};
-        const theme = url.searchParams.get('theme') || 'light';
-        const svg = generateBannerSVG(theme, customData);
+        const theme = url.searchParams.get('theme') || 'dark';
+        const view = url.searchParams.get('view') || 'banner';
+
+        let svg = '';
+        if (view === 'quest-bento') {
+          svg = generateQuestBentoSVG(theme, customData);
+        } else if (view === 'quest-split') {
+          svg = generateQuestSplitSVG(theme, customData);
+        } else {
+          svg = generateBannerSVG(theme, customData);
+        }
         res.writeHead(200, { 'Content-Type': 'image/svg+xml; charset=utf-8' });
         res.end(svg);
       } catch (err) {

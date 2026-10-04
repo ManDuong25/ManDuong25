@@ -573,6 +573,13 @@
       </div>
     </div>
 
+    <!-- View Mode Switcher -->
+    <div class="tool-group">
+      <button class="mode-tab active" id="btnViewBanner" onclick="setViewMode('banner')">🏷️ Profile Hero</button>
+      <button class="mode-tab" id="btnViewBento" onclick="setViewMode('quest-bento')">⚔️ Concept 1: Bento Quest Board</button>
+      <button class="mode-tab" id="btnViewSplit" onclick="setViewMode('quest-split')">📡 Concept 2: Split Telemetry HUD</button>
+    </div>
+
     <div class="header-actions">
       <!-- Dark / Light Mode Toggle -->
       <div class="tool-group">
@@ -729,6 +736,7 @@
 
   <script>
     let currentTheme = 'dark';
+    let currentView = 'quest-bento'; // default to new Daily Quest view for user convenience!
     let currentTool = 'annotate'; // Default directly to annotate mode for instant ease of use!
     let annotations = [];
     let customData = {
@@ -770,7 +778,7 @@
 
     async function renderBanner() {
       try {
-        const res = await fetch(`/api/banner?theme=${currentTheme}&t=${Date.now()}`, {
+        const res = await fetch(`/api/banner?theme=${currentTheme}&view=${currentView}&t=${Date.now()}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(customData)
@@ -780,6 +788,18 @@
       } catch (err) {
         console.error("Error rendering banner:", err);
       }
+    }
+
+    function setViewMode(view) {
+      currentView = view;
+      document.getElementById('btnViewBanner').classList.toggle('active', view === 'banner');
+      document.getElementById('btnViewBento').classList.toggle('active', view === 'quest-bento');
+      document.getElementById('btnViewSplit').classList.toggle('active', view === 'quest-split');
+      
+      const h = (view === 'quest-bento') ? 290 : 280;
+      document.getElementById('canvasWrapper').style.height = h + 'px';
+      document.getElementById('svgContainer').style.height = h + 'px';
+      renderBanner();
     }
 
     function setTheme(theme) {
