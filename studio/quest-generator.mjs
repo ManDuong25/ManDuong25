@@ -190,7 +190,7 @@ export function generateQuestTacticalSVG(theme = 'dark', custom = {}) {
     <text x="0" y="90" class="sans" font-size="34" font-weight="800" fill="${colors.textPrimary}" letter-spacing="-0.5">${doneCount}/${totalCount}<tspan class="mono" font-size="13" font-weight="700" fill="${colors.accentGreen}" dx="12">CLEARED</tspan></text>
 
     <!-- EXP Yield & Streak -->
-    <text x="0" y="118" class="mono" font-size="11" font-weight="700" fill="${colors.accentGreen}">YIELD: +${currentExpYield} EXP<tspan font-weight="400" fill="${colors.textSubtle}" dx="8">•</tspan><tspan font-weight="700" fill="${colors.accentAmber}" dx="8">STREAK: ${streak} DAYS 🔥</tspan></text>
+    <text x="0" y="118" class="mono" font-size="11" font-weight="700" fill="${colors.accentGreen}">YIELD: +${currentExpYield} EXP<tspan font-weight="400" fill="${colors.textSubtle}" dx="8">•</tspan><tspan font-weight="700" fill="${colors.accentAmber}" dx="8">STREAK: ${streak === 1 ? '1 DAY' : `${streak} DAYS`} 🔥</tspan></text>
 
     <!-- 10-slot Segmented EXP Bar -->
     <g transform="translate(0, 132)">

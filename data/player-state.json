@@ -9,8 +9,9 @@
     "requiredExp": 100,
     "expPercent": "0%",
     "streak": 0,
-    "lastResetDate": "2026-10-04",
-    "lastUpdated": "2026-10-04T14:32:45.202Z"
+    "lastActiveDate": "2026-10-04",
+    "streakCountedForDate": null,
+    "lastUpdated": "2026-10-04T14:34:43.261Z"
   },
   "quests": [
     {
