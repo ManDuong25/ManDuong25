@@ -136,6 +136,7 @@ export function applyQuestsChecklist(state, issueBody, todayVN) {
  */
 export function resetGitHubIssue() {
   try {
+    const repo = process.env.GITHUB_REPOSITORY || 'ManDuong25/ManDuong25';
     const issueBody = `### ⚔️ Daily Quest Log
 
 - [ ] Running 5 km (+50 EXP)
@@ -144,7 +145,11 @@ export function resetGitHubIssue() {
 ---
 > 💡 *Check a box when you complete a task. GitHub Actions will auto-sync your EXP and level progression in real-time!*
 `;
-    execSync(`gh issue edit 1 --body "${issueBody.replace(/"/g, '\\"')}"`, { stdio: 'inherit' });
+    execSync(`gh issue edit 1 --repo ${repo} --body-file -`, {
+      input: issueBody,
+      stdio: ['pipe', 'inherit', 'inherit'],
+      env: process.env
+    });
     console.log('✅ Issue #1 reset successfully on GitHub.');
   } catch (err) {
     console.warn('⚠️ Could not reset GitHub Issue #1 via gh CLI:', err.message);

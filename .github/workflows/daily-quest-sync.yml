@@ -26,8 +26,7 @@ jobs:
     if: |
       github.event_name == 'schedule' ||
       github.event_name == 'workflow_dispatch' ||
-      contains(github.event.issue.title, 'Daily Quest') ||
-      github.event.issue.number == 1
+      (github.event.issue != null && (github.event.issue.number == 1 || contains(github.event.issue.title, 'Daily Quest')))
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -41,9 +40,12 @@ jobs:
       - name: Sync Quests & Compute Level Progress
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_BODY: ${{ github.event.issue.body }}
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_ACTION: ${{ inputs.action }}
         run: |
-          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.action }}" = "reset" ]; then
+          if [ "$EVENT_NAME" = "schedule" ] || [ "$INPUT_ACTION" = "reset" ]; then
             echo "Running midnight quest reset..."
             node scripts/sync-quests.mjs --reset
           else
