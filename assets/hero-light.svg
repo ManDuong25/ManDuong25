@@ -72,31 +72,28 @@
     <text x="-1.8" y="92"><tspan class="sans" font-size="32" font-weight="800" fill="#1f2328" letter-spacing="-0.4">DƯƠNG CÔNG MÃN</tspan></text>
 
     <!-- accent rule: optically centred between Name baseline and Role cap-top -->
-    <rect x="0" y="105.5" width="68" height="3.5" rx="1.75" fill="url(#accentG)" />
+    <rect x="0" y="106" width="68" height="3.5" rx="1.75" fill="url(#accentG)" />
 
-    <!-- Role (Row 1 shared baseline) -->
-    <text x="-0.6" y="134" class="sans" font-size="15" font-weight="500" fill="#59636e">Software &amp; AI Engineer</text>
+    <!-- Role -->
+    <text x="-0.6" y="150" class="sans" font-size="16" font-weight="500" fill="#59636e">Software &amp; AI Engineer</text>
 
-    <!-- Level row (Row 2 shared baseline) -->
-    <text x="-0.8" y="185" class="mono" font-size="12" font-weight="700" fill="#17692e">LVL.01<tspan font-weight="500" fill="#656d76" dx="14">EXP PROGRESS</tspan></text>
-    <text x="246" y="185" text-anchor="end" class="mono" font-size="12" font-weight="700" fill="#17692e">12%</text>
-    <g transform="translate(0, 194)">
-      <rect x="0" y="0" width="13" height="6" rx="2" fill="#17692e" opacity="0.9" /><rect class="leading-segment" x="18" y="0" width="13" height="6" rx="2" fill="#17692e" filter="url(#softGlow)" /><rect x="36" y="0" width="13" height="6" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="54" y="0" width="13" height="6" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="72" y="0" width="13" height="6" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="90" y="0" width="13" height="6" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="108" y="0" width="13" height="6" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="126" y="0" width="13" height="6" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="144" y="0" width="13" height="6" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="162" y="0" width="13" height="6" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="180" y="0" width="13" height="6" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="198" y="0" width="13" height="6" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="216" y="0" width="13" height="6" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="234" y="0" width="13" height="6" rx="2" fill="rgba(31, 35, 40, 0.08)" />
+    <!-- Level row at bottom -->
+    <text x="-0.8" y="218" class="mono" font-size="12" font-weight="700" fill="#17692e">LVL.01<tspan font-weight="500" fill="#656d76" dx="14">EXP PROGRESS</tspan></text>
+    <text x="246" y="218" text-anchor="end" class="mono" font-size="12" font-weight="700" fill="#17692e">12%</text>
+    <g transform="translate(0, 228)">
+      <rect x="0" y="0" width="13" height="7" rx="2" fill="#17692e" opacity="0.9" /><rect class="leading-segment" x="18" y="0" width="13" height="7" rx="2" fill="#17692e" filter="url(#softGlow)" /><rect x="36" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="54" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="72" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="90" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="108" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="126" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="144" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="162" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="180" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="198" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="216" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" /><rect x="234" y="0" width="13" height="7" rx="2" fill="rgba(31, 35, 40, 0.08)" />
     </g>
-
-    <!-- Philosophy quote (Row 3 shared baseline) -->
-    <text x="-1" y="238" class="sans" font-size="13.5" font-weight="500" font-style="italic" fill="#656d76">"Life is just a game — just striving to be a little better every day."</text>
   </g>
 
   <!-- ============ COL2 — facts (x=475); starts at y=78 aligned with letter D ============ -->
   <g>
     <text x="475" y="78" class="mono" font-size="11" font-weight="700" fill="#59636e">ABOUT<tspan font-weight="400" fill="#656d76" dx="8.8">//</tspan><tspan fill="#17692e" font-weight="600" dx="8.8">ME</tspan></text>
     
-    <text x="474.3" y="114" class="mono" font-size="11" font-weight="600" fill="#656d76">FOCUS</text>
-    <text x="474.7" y="134" class="sans" font-size="14.5" font-weight="700" fill="#1f2328">Software &amp; AI Engineering</text>
+    <text x="474.3" y="106" class="mono" font-size="11" font-weight="600" fill="#656d76">FOCUS</text>
+    <text x="474.7" y="126" class="sans" font-size="14.5" font-weight="700" fill="#1f2328">Software &amp; AI Engineering</text>
     
-    <text x="474.5" y="165" class="mono" font-size="11" font-weight="600" fill="#656d76">CAMPUS</text>
-    <text x="474.7" y="185" class="sans" font-size="14.5" font-weight="700" fill="#0860ca">Sài Gòn University</text>
+    <text x="474.5" y="158" class="mono" font-size="11" font-weight="600" fill="#656d76">CAMPUS</text>
+    <text x="474.7" y="178" class="sans" font-size="14.5" font-weight="700" fill="#0860ca">Sài Gòn University</text>
     
     <text x="474.5" y="218" class="mono" font-size="11" font-weight="600" fill="#656d76">DAILY COMPOUND</text>
     <text x="474.2" y="238" class="mono" font-size="14.5" font-weight="700" fill="#17692e">1.01³⁶⁵ ≈ 37.8x</text>

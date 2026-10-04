@@ -689,10 +689,6 @@
           <input class="field-input" id="inputRole" value="Software & AI Engineer">
         </div>
         <div class="field-group">
-          <label class="field-label">Triết lý cá nhân (Active Quest):</label>
-          <input class="field-input" id="inputSlogan" value="Life is just a game — just striving to be a little better every day.">
-        </div>
-        <div class="field-group">
           <label class="field-label">Cấp độ (Level):</label>
           <input class="field-input" id="inputLevel" value="01">
         </div>
@@ -739,7 +735,6 @@
       name: "DƯƠNG CÔNG MÃN",
       handle: "",
       role: "Software & AI Engineer",
-      slogan: "Life is just a game — just striving to be a little better every day.",
       level: "01",
       expPercent: "12%"
     };
@@ -762,7 +757,6 @@
           if (document.getElementById('inputName')) document.getElementById('inputName').value = customData.name || '';
           if (document.getElementById('inputHandle')) document.getElementById('inputHandle').value = customData.handle || '';
           if (document.getElementById('inputRole')) document.getElementById('inputRole').value = customData.role || '';
-          if (document.getElementById('inputSlogan')) document.getElementById('inputSlogan').value = customData.slogan || '';
           if (document.getElementById('inputLevel')) document.getElementById('inputLevel').value = customData.level || '01';
           if (document.getElementById('inputExp')) document.getElementById('inputExp').value = customData.expPercent || '12%';
         }
@@ -1111,7 +1105,6 @@
       customData.name = document.getElementById('inputName').value.trim();
       customData.handle = document.getElementById('inputHandle').value.trim();
       customData.role = document.getElementById('inputRole').value.trim();
-      customData.slogan = document.getElementById('inputSlogan').value.trim();
       customData.level = document.getElementById('inputLevel').value.trim();
       customData.expPercent = document.getElementById('inputExp').value.trim();
       renderBanner();
