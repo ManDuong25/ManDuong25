@@ -54,13 +54,11 @@
     }
   </style>
 
-  <!-- Single outer frame -->
-  <rect x="0.5" y="0.5" width="899" height="279" rx="14" fill="url(#bgG)" stroke="#30363d" stroke-width="1" />
-
-  <g clip-path="url(#heroClip)">
-    <!-- Ambient glow bridging COL2 and COL3, centred on the middle row axis -->
-    <ellipse cx="640" cy="140" rx="300" ry="170" fill="url(#meshGlow)" />
-  </g>
+  
+  <!-- FRAMELESS: Clean subtle hairline boundary rules -->
+  <line x1="0" y1="0.5" x2="900" y2="0.5" stroke="#30363d" stroke-width="1" opacity="0.45" />
+  <line x1="0" y1="279.5" x2="900" y2="279.5" stroke="#30363d" stroke-width="1" opacity="0.45" />
+  
 
   <!-- ============ COL1 — identity (x=48) ============ -->
   <g transform="translate(48, 0)">

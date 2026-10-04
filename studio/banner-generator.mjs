@@ -55,6 +55,7 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
     requiredExp: custom.requiredExp !== undefined ? custom.requiredExp : 100,
     expPercent: custom.expPercent !== undefined ? custom.expPercent : '0%',
   };
+  const isFrameless = custom.frameless !== undefined ? custom.frameless : true;
   const name = esc(data.name), handle = esc(data.handle), role = esc(data.role);
   const level = esc(data.level);
 
@@ -172,6 +173,7 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
     }
   </style>
 
+  ${!isFrameless ? `
   <!-- Single outer frame -->
   <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="14" fill="url(#bgG)" stroke="${colors.border}" stroke-width="1" />
 
@@ -179,6 +181,11 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
     <!-- Ambient glow bridging COL2 and COL3, centred on the middle row axis -->
     <ellipse cx="640" cy="140" rx="300" ry="170" fill="url(#meshGlow)" />
   </g>
+  ` : `
+  <!-- FRAMELESS: Clean subtle hairline boundary rules -->
+  <line x1="0" y1="0.5" x2="${W}" y2="0.5" stroke="${colors.border}" stroke-width="1" opacity="0.45" />
+  <line x1="0" y1="${H - 0.5}" x2="${W}" y2="${H - 0.5}" stroke="${colors.border}" stroke-width="1" opacity="0.45" />
+  `}
 
   <!-- ============ COL1 — identity (x=${COL1}) ============ -->
   <g transform="translate(${COL1}, 0)">

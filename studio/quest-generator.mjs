@@ -100,6 +100,7 @@ export function generateQuestTacticalSVG(theme = 'dark', custom = {}) {
   const startY = numQuests <= 2 ? 94 : 84;
   const H = Math.max(250, startY + (numQuests - 1) * rowStep + 48);
 
+  const isFrameless = custom.frameless !== undefined ? custom.frameless : true;
   const colors = getThemeColors(theme);
   const M = 44;
   const divX = 284;
@@ -173,9 +174,15 @@ export function generateQuestTacticalSVG(theme = 'dark', custom = {}) {
     .pulse-dot { animation: pulseDot 2s ease-in-out infinite; }
   </style>
 
+  ${!isFrameless ? `
   <!-- 1 SINGLE OUTER FRAME ONLY -->
   <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="14" fill="url(#bgG_tac_${theme})" stroke="${colors.border}" stroke-width="1" />
   <g clip-path="url(#clip_outer_${theme})"><ellipse cx="700" cy="${H / 2}" rx="300" ry="${H / 1.5}" fill="url(#glow_tac_${theme})" /></g>
+  ` : `
+  <!-- FRAMELESS / NATIVE HUD: Zero rounded card, zero AI glow slop, clean subtle rules -->
+  <line x1="0" y1="0.5" x2="${W}" y2="0.5" stroke="${colors.border}" stroke-width="1" opacity="0.45" />
+  <line x1="0" y1="${H - 0.5}" x2="${W}" y2="${H - 0.5}" stroke="${colors.border}" stroke-width="1" opacity="0.45" />
+  `}
 
   <!-- ============ LEFT COLUMN: Telemetry + Combat Viewfinder ============ -->
   <g transform="translate(${M}, 0)">

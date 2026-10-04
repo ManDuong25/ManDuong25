@@ -19,9 +19,11 @@
     .pulse-dot { animation: pulseDot 2s ease-in-out infinite; }
   </style>
 
-  <!-- 1 SINGLE OUTER FRAME ONLY -->
-  <rect x="0.5" y="0.5" width="899" height="249" rx="14" fill="url(#bgG_tac_dark)" stroke="#30363d" stroke-width="1" />
-  <g clip-path="url(#clip_outer_dark)"><ellipse cx="700" cy="125" rx="300" ry="166.66666666666666" fill="url(#glow_tac_dark)" /></g>
+  
+  <!-- FRAMELESS / NATIVE HUD: Zero rounded card, zero AI glow slop, clean subtle rules -->
+  <line x1="0" y1="0.5" x2="900" y2="0.5" stroke="#30363d" stroke-width="1" opacity="0.45" />
+  <line x1="0" y1="249.5" x2="900" y2="249.5" stroke="#30363d" stroke-width="1" opacity="0.45" />
+  
 
   <!-- ============ LEFT COLUMN: Telemetry + Combat Viewfinder ============ -->
   <g transform="translate(44, 0)">
