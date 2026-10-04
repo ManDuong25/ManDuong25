@@ -63,6 +63,6 @@ jobs:
             SHA=$(git rev-parse HEAD)
             sed -i -E "s|https://raw\.githubusercontent\.com/ManDuong25/ManDuong25/[a-f0-9]+/assets/|https://raw.githubusercontent.com/ManDuong25/ManDuong25/${SHA}/assets/|g" README.md
             git add README.md
-            git commit --amend --no-edit
+            git commit -m "chore(readme): point HUD assets to latest commit [skip ci]"
             git push
           fi
