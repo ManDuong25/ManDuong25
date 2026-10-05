@@ -11,12 +11,48 @@
     "streak": 0,
     "lastActiveDate": "2026-10-05",
     "streakCountedForDate": null,
-    "lastUpdated": "2026-10-05T00:18:33.727Z"
+    "lastUpdated": "2026-10-05T00:20:45.266Z"
+  },
+  "attributes": {
+    "TECH": {
+      "completed": 0,
+      "missed": 0,
+      "score": 0
+    },
+    "INTELLECT": {
+      "completed": 0,
+      "missed": 0,
+      "score": 0
+    },
+    "VITALITY": {
+      "completed": 0,
+      "missed": 0,
+      "score": 0
+    },
+    "GRIT": {
+      "completed": 0,
+      "missed": 0,
+      "score": 0
+    },
+    "OUTPUT": {
+      "completed": 0,
+      "missed": 0,
+      "score": 0
+    },
+    "SYSTEMS": {
+      "completed": 0,
+      "missed": 0,
+      "score": 0
+    }
   },
   "quests": [
     {
       "id": 1,
       "title": "Running 3 km",
+      "tags": [
+        "VITALITY",
+        "GRIT"
+      ],
       "exp": "+50 EXP",
       "expValue": 50,
       "done": true,
@@ -26,6 +62,10 @@
     {
       "id": 2,
       "title": "Learning English for 4 hours",
+      "tags": [
+        "INTELLECT",
+        "GRIT"
+      ],
       "exp": "+50 EXP",
       "expValue": 50,
       "done": false,

@@ -43,8 +43,8 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
   const RADAR_R = 52;                             // outer hexagon radius (104px diameter)
   const RADAR_RX = +(RADAR_R * Math.cos(Math.PI / 6)).toFixed(2); // 45.03
   const RADAR_CY = 168;                           // radar center (bottom label LOGIC lands on y = 238)
-  const COL3_AXIS = 776;                          // radar axis -> right ink edge ≈ 850px (50px margin)
-  const COL3_LEFT = 682;                          // header + DESIGN label left edge
+  const COL3_AXIS = 766;                          // radar axis -> right ink edge ≈ 882px (18px margin)
+  const COL3_LEFT = 666;                          // header + SYSTEMS label left edge
 
   const data = {
     name: custom.name || 'DƯƠNG CÔNG MÃN',
@@ -88,8 +88,23 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
   const R = RADAR_R, Rx = RADAR_RX;
   const unit = [[0, -1], [Rx / R, -0.5], [Rx / R, 0.5], [0, 1], [-Rx / R, 0.5], [-Rx / R, -0.5]];
   const ring = (k) => unit.map(([x, y]) => `${+(x * R * k).toFixed(2)},${+(y * R * k).toFixed(2)}`).join(' ');
-  // Real stat silhouette, order: CODE, SYS, AI, LOGIC, GRIT, DESIGN
-  const STATS = [0.86, 0.78, 0.92, 0.86, 0.83, 0.70];
+
+  // Dynamic Warrior Attributes: TECH, INTELLECT, VITALITY, GRIT, OUTPUT, SYSTEMS
+  const attrs = custom.attributes || {};
+  const getScore = (key) => {
+    const a = attrs[key];
+    if (!a || typeof a.score !== 'number' || a.score <= 0) return 0.05;
+    return Math.max(0.05, Math.min(1.0, a.score));
+  };
+  // Order clockwise: TECH (0), INTELLECT (1), VITALITY (2), GRIT (3), OUTPUT (4), SYSTEMS (5)
+  const STATS = [
+    getScore('TECH'),
+    getScore('INTELLECT'),
+    getScore('VITALITY'),
+    getScore('GRIT'),
+    getScore('OUTPUT'),
+    getScore('SYSTEMS')
+  ];
   const statVerts = unit.map(([x, y], i) => [+(x * R * STATS[i]).toFixed(2), +(y * R * STATS[i]).toFixed(2)]);
   const STATS_PTS = statVerts.map(([x, y]) => `${x},${y}`).join(' ');
   const axisExt = 1.04;
@@ -99,17 +114,17 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
     return `<line x1="${-ax}" y1="${-ay}" x2="${ax}" y2="${ay}" stroke="${colors.gridLine}" stroke-width="1.2" />`;
   }).join('\n      ');
 
-  // Axis labels: 11px caps, 9px clear of each vertex
+  // Axis labels: 11px caps, 9px clear of each vertex (NO parentheses, clean)
   const LBL_GAP = 9, LBL_DY = 4;
   const lbl = (txt, x, y, anchor) =>
     `<text x="${x}" y="${y}" class="mono" font-size="11" font-weight="700" text-anchor="${anchor}" fill="${colors.textSubtle}">${txt}</text>`;
   const labels = [
-    lbl('CODE', 0, -(R + LBL_GAP), 'middle'),
-    lbl('SYS', +(Rx + LBL_GAP).toFixed(2), +(-R / 2 + LBL_DY).toFixed(2), 'start'),
-    lbl('AI', +(Rx + LBL_GAP).toFixed(2), +(R / 2 + LBL_DY).toFixed(2), 'start'),
-    lbl('LOGIC', 0, R_BOTTOM - RADAR_CY, 'middle'),
-    lbl('GRIT', -+(Rx + LBL_GAP).toFixed(2), +(R / 2 + LBL_DY).toFixed(2), 'end'),
-    lbl('DESIGN', -+(Rx + LBL_GAP).toFixed(2), +(-R / 2 + LBL_DY).toFixed(2), 'end'),
+    lbl('TECH', 0, -(R + LBL_GAP), 'middle'),
+    lbl('INTELLECT', +(Rx + LBL_GAP).toFixed(2), +(-R / 2 + LBL_DY).toFixed(2), 'start'),
+    lbl('VITALITY', +(Rx + LBL_GAP).toFixed(2), +(R / 2 + LBL_DY).toFixed(2), 'start'),
+    lbl('GRIT', 0, R_BOTTOM - RADAR_CY, 'middle'),
+    lbl('OUTPUT', -+(Rx + LBL_GAP).toFixed(2), +(R / 2 + LBL_DY).toFixed(2), 'end'),
+    lbl('SYSTEMS', -+(Rx + LBL_GAP).toFixed(2), +(-R / 2 + LBL_DY).toFixed(2), 'end'),
   ].join('\n      ');
 
   // ---- Middle column: 3 fact blocks with synchronized baselines ----------
@@ -243,10 +258,10 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
       <polygon points="${ring(1 / 3)}" fill="none" stroke="${colors.gridLine}" stroke-width="0.8" />
       ${axes}
 
-      <!-- the real spider web: blooms ONCE from the centre dot -->
+      <!-- the real spider web: blooms dynamically from current attribute stats -->
       <g class="spider-bloom-group">
         <polygon points="${STATS_PTS}" fill="${colors.radarFill}" stroke="${colors.radarStroke}" stroke-width="2" stroke-linejoin="round" filter="url(#softGlow)" />
-        ${statVerts.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.6" fill="${colors.accentCyan}" />`).join('\n        ')}
+        ${statVerts.map(([x, y], i) => STATS[i] > 0.08 ? `<circle cx="${x}" cy="${y}" r="2.6" fill="${colors.accentCyan}" />` : '').filter(Boolean).join('\n        ')}
       </g>
 
       <circle cx="0" cy="0" r="3" fill="${colors.accentGreen}" class="pulse-dot" />

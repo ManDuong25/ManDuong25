@@ -124,6 +124,44 @@ export function processDateRollover(state, todayVN, questLog, options = {}) {
     state.player.streak = 0;
   }
 
+  // Evaluate Warrior Attributes (Option 1: Lifetime Win-Rate C / (C + M))
+  const allAttributes = ['TECH', 'INTELLECT', 'VITALITY', 'GRIT', 'OUTPUT', 'SYSTEMS'];
+  if (!state.attributes) {
+    state.attributes = {
+      TECH: { completed: 0, missed: 0, score: 0.0 },
+      INTELLECT: { completed: 0, missed: 0, score: 0.0 },
+      VITALITY: { completed: 0, missed: 0, score: 0.0 },
+      GRIT: { completed: 0, missed: 0, score: 0.0 },
+      OUTPUT: { completed: 0, missed: 0, score: 0.0 },
+      SYSTEMS: { completed: 0, missed: 0, score: 0.0 }
+    };
+  }
+
+  for (const attr of allAttributes) {
+    if (!state.attributes[attr]) {
+      state.attributes[attr] = { completed: 0, missed: 0, score: 0.0 };
+    }
+    const relevantQuests = state.quests.filter(q => (q.tags || []).includes(attr));
+    if (relevantQuests.length > 0) {
+      const skippedDays = Math.max(0, diffDays - 1);
+      if (skippedDays > 0) {
+        state.attributes[attr].missed += skippedDays;
+      }
+
+      const allDone = relevantQuests.every(q => q.done);
+      if (allDone) {
+        state.attributes[attr].completed += 1;
+        console.log(`🎯 [${attr}] completed yesterday! (C: ${state.attributes[attr].completed}, M: ${state.attributes[attr].missed})`);
+      } else {
+        state.attributes[attr].missed += 1;
+        console.log(`⚠️ [${attr}] missed yesterday! (C: ${state.attributes[attr].completed}, M: ${state.attributes[attr].missed})`);
+      }
+
+      const total = state.attributes[attr].completed + state.attributes[attr].missed;
+      state.attributes[attr].score = total > 0 ? Number((state.attributes[attr].completed / total).toFixed(4)) : 0.0;
+    }
+  }
+
   // Log rollover event
   const nowISO = new Date().toISOString();
   const timeVN = getNowTimeVN(true);
@@ -139,7 +177,8 @@ export function processDateRollover(state, todayVN, questLog, options = {}) {
     yesterdayYield,
     allClearedYesterday,
     streakResult: state.player.streak,
-    totalExpAfterRoll: state.player.baseExp
+    totalExpAfterRoll: state.player.baseExp,
+    attributesSnapshot: JSON.parse(JSON.stringify(state.attributes))
   });
   questLog.meta.lastUpdated = nowISO;
 
@@ -277,11 +316,20 @@ export function resetGitHubIssue() {
     const repo = process.env.GITHUB_REPOSITORY || 'ManDuong25/ManDuong25';
     const issueBody = `### ⚔️ Daily Quest Log
 
-- [ ] Running 3 km (+50 EXP)
-- [ ] Learning English for 4 hours (+50 EXP)
+- [ ] Running 3 km (+50 EXP) [#VITALITY, #GRIT]
+- [ ] Learning English for 4 hours (+50 EXP) [#INTELLECT, #GRIT]
 
 ---
-> 💡 *Check a box when you complete a task. GitHub Actions will auto-sync your EXP and level progression in real-time!*
+> 💡 *Check a box when you complete a task. GitHub Actions will auto-sync your EXP, level progression, and dynamic radar telemetry in real-time!*
+
+---
+### 🧭 Thuộc tính Chiến Binh (Warrior Attributes)
+• **VITALITY**: Thể chất, chạy bộ, năng lượng sống.  
+• **INTELLECT**: Học tiếng Anh (4h), đọc tài liệu chuyên sâu, nghiên cứu.  
+• **GRIT**: Duy trì chuỗi Streak, sự bền bỉ, ngồi học/làm việc sâu không xao nhãng.  
+• **TECH**: Kỹ năng code, thuật toán, công nghệ AI.  
+• **SYSTEMS**: Tư duy hệ thống, tự động hóa (như workflow GitHub Actions bạn đang dùng).  
+• **OUTPUT**: Dự án hoàn thành, tính năng bàn giao, đóng góp thực tế.
 `;
     execSync(`gh issue edit 1 --repo ${repo} --body-file -`, {
       input: issueBody,
@@ -390,7 +438,8 @@ async function regenerateAllSVGs(state) {
     level: state.player.level,
     currentExp: state.player.currentExp,
     requiredExp: state.player.requiredExp,
-    expPercent: state.player.expPercent
+    expPercent: state.player.expPercent,
+    attributes: state.attributes
   });
   const heroLight = generateBannerSVG('light', {
     name: state.player.name,
@@ -398,7 +447,8 @@ async function regenerateAllSVGs(state) {
     level: state.player.level,
     currentExp: state.player.currentExp,
     requiredExp: state.player.requiredExp,
-    expPercent: state.player.expPercent
+    expPercent: state.player.expPercent,
+    attributes: state.attributes
   });
 
   await fs.writeFile(path.join(ASSETS_DIR, 'hero-dark.svg'), heroDark, 'utf8');
