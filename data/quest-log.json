@@ -35,6 +35,35 @@
       "level": "02",
       "totalExp": 100,
       "lastUpdated": "2026-10-05T11:12:33.943Z"
+    },
+    "2026-10-06": {
+      "date": "2026-10-06",
+      "quests": [
+        {
+          "id": 1,
+          "title": "Running 3 km",
+          "done": false,
+          "completedAt": null,
+          "completedTime": null,
+          "expValue": 50
+        },
+        {
+          "id": 2,
+          "title": "Learning English for 4 hours",
+          "done": false,
+          "completedAt": null,
+          "completedTime": null,
+          "expValue": 50
+        }
+      ],
+      "clearedCount": 0,
+      "totalQuests": 2,
+      "allCleared": false,
+      "dailyYield": 0,
+      "streak": 1,
+      "level": "02",
+      "totalExp": 100,
+      "lastUpdated": "2026-10-05T22:58:05.294Z"
     }
   },
   "history": [

@@ -346,14 +346,18 @@ export function resetGitHubIssue() {
  * Midnight reset handler (called by cron at 00:00 VN / 17:00 UTC)
  */
 export async function resetDailyQuests(force = false) {
-  console.log('🌅 Running Midnight Daily Quest Reset (Vietnam Time)...');
+  console.log('🌅 Running Daily Quest Rollover / Reset Engine (Vietnam Time)...');
   const rawState = await fs.readFile(STATE_FILE, 'utf8');
   const state = JSON.parse(rawState);
   const questLog = await readQuestLog();
   const todayVN = getTodayDateVN();
 
   // Perform date rollover
-  processDateRollover(state, todayVN, questLog, { force: true });
+  const rolledOver = processDateRollover(state, todayVN, questLog, { force });
+  if (!rolledOver && !force) {
+    console.log(`ℹ️ Today (${todayVN}) has already been rolled over and is up to date.`);
+    return state;
+  }
 
   // Update totalExp & level with new baseExp
   state.player.totalExp = state.player.baseExp || 0;
@@ -374,7 +378,7 @@ export async function resetDailyQuests(force = false) {
   await fs.writeFile(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
   await saveQuestLog(questLog);
 
-  console.log(`✅ Midnight reset finished! Streak: ${state.player.streak} | Base EXP: ${state.player.baseExp} | Level: ${state.player.level}`);
+  console.log(`✅ Rollover finished! Streak: ${state.player.streak} | Base EXP: ${state.player.baseExp} | Level: ${state.player.level}`);
   return state;
 }
 
@@ -392,7 +396,21 @@ export async function syncQuestsFromText(issueBody) {
   // If a new day has arrived and reset hasn't executed yet, rollover first!
   const rolledOver = processDateRollover(state, todayVN, questLog);
   if (rolledOver) {
+    console.log('🌅 New day detected during sync! Performing rollover and resetting issue...');
+    state.player.totalExp = state.player.baseExp || 0;
+    const progress = calculatePlayerProgress(state.player.totalExp);
+    state.player.level = progress.level;
+    state.player.currentExp = progress.currentExp;
+    state.player.requiredExp = progress.requiredExp;
+    state.player.expPercent = progress.expPercent;
+    state.player.lastUpdated = new Date().toISOString();
+
     resetGitHubIssue();
+    await regenerateAllSVGs(state);
+    await fs.writeFile(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
+    await saveQuestLog(questLog);
+    console.log('✅ Rollover completed safely! Today is ready with fresh quests.');
+    return state;
   }
 
   // Apply checklist changes & track timestamps
@@ -472,8 +490,14 @@ async function regenerateAllSVGs(state) {
 // Allow standalone run from CLI
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const isReset = process.argv.includes('--reset');
+  const isSchedule = process.argv.includes('--schedule');
+  const isForce = process.argv.includes('--force');
+
   if (isReset) {
     resetDailyQuests(true).catch(console.error);
+  } else if (isSchedule) {
+    // Schedule mode: safe check (only rolls over if diffDays >= 1)
+    resetDailyQuests(isForce).catch(console.error);
   } else {
     let issueBody = process.env.ISSUE_BODY;
     if (!issueBody) {

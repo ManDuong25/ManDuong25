@@ -4,8 +4,12 @@ on:
   issues:
     types: [opened, edited, labeled]
   schedule:
-    # Midnight 00:00 UTC+7 (Vietnam Time) is 17:00 UTC
-    - cron: '0 17 * * *'
+    # Vietnam Midnight (00:00 UTC+7) is 17:00 UTC
+    # Minute 5 avoids GitHub Actions :00 congestion queue drops
+    - cron: '5 17 * * *'    # 00:05 VN (primary midnight rollover)
+    - cron: '35 17 * * *'   # 00:35 VN (backup 1)
+    - cron: '5 18 * * *'    # 01:05 VN (backup 2)
+    - cron: '5 23 * * *'    # 06:05 VN (morning sanity check)
   workflow_dispatch:
     inputs:
       action:
@@ -35,7 +39,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Sync Quests & Compute Level Progress
         env:
@@ -45,9 +49,12 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
           INPUT_ACTION: ${{ inputs.action }}
         run: |
-          if [ "$EVENT_NAME" = "schedule" ] || [ "$INPUT_ACTION" = "reset" ]; then
-            echo "Running midnight quest reset..."
-            node scripts/sync-quests.mjs --reset
+          if [ "$EVENT_NAME" = "schedule" ]; then
+            echo "Running scheduled daily quest check / rollover..."
+            node scripts/sync-quests.mjs --schedule
+          elif [ "$INPUT_ACTION" = "reset" ]; then
+            echo "Running forced midnight reset..."
+            node scripts/sync-quests.mjs --reset --force
           else
             echo "Running quest sync..."
             node scripts/sync-quests.mjs
