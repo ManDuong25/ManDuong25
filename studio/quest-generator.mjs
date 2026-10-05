@@ -77,6 +77,22 @@ const defaultQuests = [
     id: 2,
     title: 'Learning English for 4 hours',
     exp: '+50 EXP', expValue: 50, done: false, completedTime: null
+  },
+  {
+    id: 3,
+    title: 'LeetCode: 1 Pattern / 2 Problems',
+    exp: '+50 EXP', expValue: 50, done: false, completedTime: null
+  },
+  {
+    id: 4,
+    title: 'Build Project: 1 Feature',
+    exp: '+50 EXP', expValue: 50, done: false, completedTime: null
+  },
+  {
+    id: 5,
+    title: 'Reading books for 30 mins',
+    optional: true,
+    exp: '+25 EXP', expValue: 25, done: false, completedTime: null
   }
 ];
 
@@ -130,7 +146,7 @@ export function generateQuestTacticalSVG(theme = 'dark', custom = {}) {
         </g>
 
         <!-- Mission Title (Enlarged, clean without tags) -->
-        <text x="32" y="3.5" class="sans" font-size="16" font-weight="700" fill="${isDone ? colors.textMuted : colors.textPrimary}">${q.title}</text>
+        <text x="32" y="3.5" class="sans" font-size="${numQuests > 3 ? 15 : 16}" font-weight="700" fill="${isDone ? colors.textMuted : colors.textPrimary}">${q.title}</text>
 
         <!-- Tactical State Button on Right: Chưa bấm vs Bấm rồi có timestamp -->
         <g transform="translate(${btnX}, -13)">

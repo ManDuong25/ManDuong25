@@ -84,34 +84,44 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
   const MONO = "ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace";
   const SANS = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
 
-  // ---- Radar geometry (pointy-top hexagon, vertices clockwise from top) ----
-  const R = RADAR_R, Rx = RADAR_RX;
-  const unit = [[0, -1], [Rx / R, -0.5], [Rx / R, 0.5], [0, 1], [-Rx / R, 0.5], [-Rx / R, -0.5]];
+  // ---- Radar geometry (pointy-top 5-pillar pentagon, vertices clockwise from top) ----
+  const R = RADAR_R;
+  const sin72 = +(Math.sin(72 * Math.PI / 180)).toFixed(4); // 0.9511
+  const cos72 = +(Math.cos(72 * Math.PI / 180)).toFixed(4); // 0.3090
+  const sin36 = +(Math.sin(36 * Math.PI / 180)).toFixed(4); // 0.5878
+  const cos36 = +(Math.cos(36 * Math.PI / 180)).toFixed(4); // 0.8090
+
+  // 5 vertices (Pentagon): TECH (0, top), INTELLECT (1, top-right), VITALITY (2, bottom-right), GRIT (3, bottom-left), OUTPUT (4, top-left)
+  const unit = [
+    [0, -1],
+    [sin72, -cos72],
+    [sin36, cos36],
+    [-sin36, cos36],
+    [-sin72, -cos72]
+  ];
   const ring = (k) => unit.map(([x, y]) => `${+(x * R * k).toFixed(2)},${+(y * R * k).toFixed(2)}`).join(' ');
 
-  // Dynamic Warrior Attributes: TECH, INTELLECT, VITALITY, GRIT, OUTPUT, SYSTEMS
+  // Dynamic Warrior Attributes: TECH, INTELLECT, VITALITY, GRIT, OUTPUT (5 Pillars)
   const attrs = custom.attributes || {};
   const getScore = (key) => {
     const a = attrs[key];
     if (!a || typeof a.score !== 'number' || a.score <= 0) return 0.05;
     return Math.max(0.05, Math.min(1.0, a.score));
   };
-  // Order clockwise: TECH (0), INTELLECT (1), VITALITY (2), GRIT (3), OUTPUT (4), SYSTEMS (5)
+  // Order clockwise: TECH (0), INTELLECT (1), VITALITY (2), GRIT (3), OUTPUT (4)
   const STATS = [
     getScore('TECH'),
     getScore('INTELLECT'),
     getScore('VITALITY'),
     getScore('GRIT'),
-    getScore('OUTPUT'),
-    getScore('SYSTEMS')
+    getScore('OUTPUT')
   ];
   const statVerts = unit.map(([x, y], i) => [+(x * R * STATS[i]).toFixed(2), +(y * R * STATS[i]).toFixed(2)]);
   const STATS_PTS = statVerts.map(([x, y]) => `${x},${y}`).join(' ');
   const axisExt = 1.04;
-  const axes = [0, 1, 2].map((i) => {
-    const [x, y] = unit[i];
+  const axes = unit.map(([x, y]) => {
     const ax = +(x * R * axisExt).toFixed(2), ay = +(y * R * axisExt).toFixed(2);
-    return `<line x1="${-ax}" y1="${-ay}" x2="${ax}" y2="${ay}" stroke="${colors.gridLine}" stroke-width="1.2" />`;
+    return `<line x1="0" y1="0" x2="${ax}" y2="${ay}" stroke="${colors.gridLine}" stroke-width="1.2" />`;
   }).join('\n      ');
 
   // Axis labels: 11px caps, 9px clear of each vertex (NO parentheses, clean)
@@ -120,11 +130,10 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
     `<text x="${x}" y="${y}" class="mono" font-size="11" font-weight="700" text-anchor="${anchor}" fill="${colors.textSubtle}">${txt}</text>`;
   const labels = [
     lbl('TECH', 0, -(R + LBL_GAP), 'middle'),
-    lbl('INTELLECT', +(Rx + LBL_GAP).toFixed(2), +(-R / 2 + LBL_DY).toFixed(2), 'start'),
-    lbl('VITALITY', +(Rx + LBL_GAP).toFixed(2), +(R / 2 + LBL_DY).toFixed(2), 'start'),
-    lbl('GRIT', 0, R_BOTTOM - RADAR_CY, 'middle'),
-    lbl('OUTPUT', -+(Rx + LBL_GAP).toFixed(2), +(R / 2 + LBL_DY).toFixed(2), 'end'),
-    lbl('SYSTEMS', -+(Rx + LBL_GAP).toFixed(2), +(-R / 2 + LBL_DY).toFixed(2), 'end'),
+    lbl('INTELLECT', +(unit[1][0] * R + 8).toFixed(2), +(unit[1][1] * R + LBL_DY).toFixed(2), 'start'),
+    lbl('VITALITY', +(unit[2][0] * R + 8).toFixed(2), +(unit[2][1] * R + 6).toFixed(2), 'start'),
+    lbl('GRIT', +(unit[3][0] * R - 8).toFixed(2), +(unit[3][1] * R + 6).toFixed(2), 'end'),
+    lbl('OUTPUT', +(unit[4][0] * R - 8).toFixed(2), +(unit[4][1] * R + LBL_DY).toFixed(2), 'end'),
   ].join('\n      ');
 
   // ---- Middle column: 3 fact blocks with synchronized baselines ----------

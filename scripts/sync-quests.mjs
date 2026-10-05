@@ -50,8 +50,21 @@ export function getDaysDiff(dateStr1, dateStr2) {
  * Matches quest in issue checklist, supporting flexible spelling / Vietnamese aliases
  */
 export function getQuestRegex(title) {
-  if (title.toLowerCase().includes('running') || title.toLowerCase().includes('chạy bộ')) {
+  const lower = title.toLowerCase();
+  if (lower.includes('running') || lower.includes('chạy bộ')) {
     return /^[ \t]*-[ \t]*\[([xX ])\][ \t]+.*(?:running|chạy bộ)[ \t]*3[ \t]*km/im;
+  }
+  if (lower.includes('english') || lower.includes('tiếng anh')) {
+    return /^[ \t]*-[ \t]*\[([xX ])\][ \t]+.*(?:english|tiếng anh)/im;
+  }
+  if (lower.includes('leetcode')) {
+    return /^[ \t]*-[ \t]*\[([xX ])\][ \t]+.*leetcode/im;
+  }
+  if (lower.includes('build project') || lower.includes('project')) {
+    return /^[ \t]*-[ \t]*\[([xX ])\][ \t]+.*(?:build project|project)/im;
+  }
+  if (lower.includes('reading') || lower.includes('đọc sách')) {
+    return /^[ \t]*-[ \t]*\[([xX ])\][ \t]+.*(?:reading|đọc sách)/im;
   }
   const escaped = title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return new RegExp(`^[\\t ]*-[\\t ]*\\[([xX ])\\][\\t ]+.*${escaped}`, 'im');
@@ -89,7 +102,7 @@ export async function saveQuestLog(logData) {
 /**
  * Handles daily midnight rollover:
  * - Banks yesterday's earned EXP into lifetime baseExp
- * - Preserves streak ONLY if yesterday ALL tasks were cleared
+ * - Preserves streak ONLY if yesterday ALL CORE tasks were cleared (optional excluded)
  * - If yesterday was incomplete or day(s) were missed: MẤT STREAK (streak = 0)
  * - Resets quests to uncompleted (done: false, completedAt: null, completedTime: null)
  * - Logs rollover event to quest-log.json
@@ -108,34 +121,36 @@ export function processDateRollover(state, todayVN, questLog, options = {}) {
 
   console.log(`🌅 Rollover detected: ${lastDate} -> ${todayVN} (diff: ${diffDays} day(s))`);
 
-  // Check if yesterday's tasks were all completed
-  const completedYesterday = state.quests.filter(q => q.done);
-  const allClearedYesterday = state.quests.length > 0 && completedYesterday.length === state.quests.length;
-  const yesterdayYield = completedYesterday.reduce((sum, q) => sum + (q.expValue || 50), 0);
+  // Check if yesterday's core tasks were all completed (exclude optional)
+  const coreQuests = state.quests.filter(q => !q.optional && !q.title.toLowerCase().includes('optional'));
+  const completedCoreYesterday = coreQuests.filter(q => q.done);
+  const allClearedYesterday = coreQuests.length > 0 && completedCoreYesterday.length === coreQuests.length;
+  const yesterdayYield = state.quests.filter(q => q.done).reduce((sum, q) => sum + (q.expValue || 50), 0);
 
   // Bank yesterday's EXP into lifetime baseExp
   state.player.baseExp = (state.player.baseExp || 0) + yesterdayYield;
 
   // Streak Verification:
   if ((diffDays === 1 || options.force) && allClearedYesterday) {
-    console.log(`🔥 All tasks were cleared yesterday! Streak preserved at: ${state.player.streak}`);
+    console.log(`🔥 All core tasks were cleared yesterday! Streak preserved at: ${state.player.streak}`);
   } else {
-    console.log(`💔 Incomplete tasks yesterday or skipped days! Streak lost -> reset to 0.`);
+    console.log(`💔 Incomplete core tasks yesterday or skipped days! Streak lost -> reset to 0.`);
     state.player.streak = 0;
   }
 
-  // Evaluate Warrior Attributes (Option 1: Lifetime Win-Rate C / (C + M))
-  const allAttributes = ['TECH', 'INTELLECT', 'VITALITY', 'GRIT', 'OUTPUT', 'SYSTEMS'];
+  // Evaluate Warrior Attributes (5 Pillars: TECH, INTELLECT, VITALITY, GRIT, OUTPUT)
+  const allAttributes = ['TECH', 'INTELLECT', 'VITALITY', 'GRIT', 'OUTPUT'];
   if (!state.attributes) {
     state.attributes = {
       TECH: { completed: 0, missed: 0, score: 0.0 },
       INTELLECT: { completed: 0, missed: 0, score: 0.0 },
       VITALITY: { completed: 0, missed: 0, score: 0.0 },
       GRIT: { completed: 0, missed: 0, score: 0.0 },
-      OUTPUT: { completed: 0, missed: 0, score: 0.0 },
-      SYSTEMS: { completed: 0, missed: 0, score: 0.0 }
+      OUTPUT: { completed: 0, missed: 0, score: 0.0 }
     };
   }
+  // Drop deprecated SYSTEMS attribute if present
+  delete state.attributes.SYSTEMS;
 
   for (const attr of allAttributes) {
     if (!state.attributes[attr]) {
@@ -255,15 +270,16 @@ export function applyQuestsChecklist(state, issueBody, todayVN, questLog) {
     }
   }
 
-  // 2. Check today completion & streak
-  const completedToday = state.quests.filter(q => q.done);
-  const allClearedToday = state.quests.length > 0 && completedToday.length === state.quests.length;
+  // 2. Check today completion & streak (core quests only, exclude optional)
+  const coreQuests = state.quests.filter(q => !q.optional && !q.title.toLowerCase().includes('optional'));
+  const completedCoreToday = coreQuests.filter(q => q.done);
+  const allClearedToday = coreQuests.length > 0 && completedCoreToday.length === coreQuests.length;
 
   if (allClearedToday) {
     if (state.player.streakCountedForDate !== todayVN) {
       state.player.streak = (state.player.streak || 0) + 1;
       state.player.streakCountedForDate = todayVN;
-      console.log(`🔥 All daily quests cleared! Streak increased to ${state.player.streak} DAYS!`);
+      console.log(`🔥 All daily core quests cleared! Streak increased to ${state.player.streak} DAYS!`);
     }
   } else {
     if (state.player.streakCountedForDate === todayVN) {
@@ -273,7 +289,8 @@ export function applyQuestsChecklist(state, issueBody, todayVN, questLog) {
     }
   }
 
-  // 3. Compute EXP & Level
+  // 3. Compute EXP & Level (all completed quests including optional!)
+  const completedToday = state.quests.filter(q => q.done);
   const dailyYield = completedToday.reduce((sum, q) => sum + (q.expValue || 50), 0);
   state.player.totalExp = (state.player.baseExp || 0) + dailyYield;
 
@@ -318,18 +335,22 @@ export function resetGitHubIssue() {
 
 - [ ] Running 3 km (+50 EXP) [#VITALITY, #GRIT]
 - [ ] Learning English for 4 hours (+50 EXP) [#INTELLECT, #GRIT]
+- [ ] LeetCode: 1 Pattern / 2 Problems (+50 EXP) [#TECH]
+- [ ] Build Project: 1 Feature (+50 EXP) [#OUTPUT]
+- [ ] Reading books for 30 mins (+25 EXP) [OPTIONAL]
 
 ---
 > 💡 *Check a box when you complete a task. GitHub Actions will auto-sync your EXP, level progression, and dynamic radar telemetry in real-time!*
 
 ---
-### 🧭 Thuộc tính Chiến Binh (Warrior Attributes)
-• **VITALITY**: Thể chất, chạy bộ, năng lượng sống.  
-• **INTELLECT**: Học tiếng Anh (4h), đọc tài liệu chuyên sâu, nghiên cứu.  
-• **GRIT**: Duy trì chuỗi Streak, sự bền bỉ, ngồi học/làm việc sâu không xao nhãng.  
-• **TECH**: Kỹ năng code, thuật toán, công nghệ AI.  
-• **SYSTEMS**: Tư duy hệ thống, tự động hóa (như workflow GitHub Actions bạn đang dùng).  
-• **OUTPUT**: Dự án hoàn thành, tính năng bàn giao, đóng góp thực tế.
+### 🧭 Thuộc tính Chiến Binh (5 Warrior Pillars)
+• **TECH**: Thuật toán (LeetCode: 1 pattern / 2 problems), cấu trúc dữ liệu, công nghệ AI.  
+• **OUTPUT**: Xây dựng & bàn giao sản phẩm thực tế (Build project: 1 feature cùng AI Agent).  
+• **INTELLECT**: Học tiếng Anh (4h), tài liệu kỹ thuật chuyên sâu.  
+• **VITALITY**: Thể chất, chạy bộ 3km, năng lượng và sức bền thể lực.  
+• **GRIT**: Duy trì chuỗi Streak, sự bền bỉ, tập trung cao độ không xao nhãng.  
+
+💡 *Lưu ý: Task [OPTIONAL] giúp tích thêm EXP cày cấp (+25 EXP), nếu không tích sẽ KHÔNG bị phạt đứt Streak hay tụt mạng nhện.*
 `;
     execSync(`gh issue edit 1 --repo ${repo} --body-file -`, {
       input: issueBody,

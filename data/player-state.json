@@ -11,7 +11,7 @@
     "streak": 1,
     "lastActiveDate": "2026-10-06",
     "streakCountedForDate": null,
-    "lastUpdated": "2026-10-05T23:23:19.022Z"
+    "lastUpdated": "2026-10-05T23:23:14.376Z"
   },
   "attributes": {
     "TECH": {
@@ -35,11 +35,6 @@
       "score": 1
     },
     "OUTPUT": {
-      "completed": 0,
-      "missed": 0,
-      "score": 0
-    },
-    "SYSTEMS": {
       "completed": 0,
       "missed": 0,
       "score": 0
@@ -68,6 +63,41 @@
       ],
       "exp": "+50 EXP",
       "expValue": 50,
+      "done": false,
+      "completedAt": null,
+      "completedTime": null
+    },
+    {
+      "id": 3,
+      "title": "LeetCode: 1 Pattern / 2 Problems",
+      "tags": [
+        "TECH"
+      ],
+      "exp": "+50 EXP",
+      "expValue": 50,
+      "done": false,
+      "completedAt": null,
+      "completedTime": null
+    },
+    {
+      "id": 4,
+      "title": "Build Project: 1 Feature",
+      "tags": [
+        "OUTPUT"
+      ],
+      "exp": "+50 EXP",
+      "expValue": 50,
+      "done": false,
+      "completedAt": null,
+      "completedTime": null
+    },
+    {
+      "id": 5,
+      "title": "Reading books for 30 mins",
+      "tags": [],
+      "optional": true,
+      "exp": "+25 EXP",
+      "expValue": 25,
       "done": false,
       "completedAt": null,
       "completedTime": null

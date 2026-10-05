@@ -54,16 +54,40 @@
           "completedAt": null,
           "completedTime": null,
           "expValue": 50
+        },
+        {
+          "id": 3,
+          "title": "LeetCode: 1 Pattern / 2 Problems",
+          "done": false,
+          "completedAt": null,
+          "completedTime": null,
+          "expValue": 50
+        },
+        {
+          "id": 4,
+          "title": "Build Project: 1 Feature",
+          "done": false,
+          "completedAt": null,
+          "completedTime": null,
+          "expValue": 50
+        },
+        {
+          "id": 5,
+          "title": "Reading books for 30 mins",
+          "done": false,
+          "completedAt": null,
+          "completedTime": null,
+          "expValue": 25
         }
       ],
       "clearedCount": 0,
-      "totalQuests": 2,
+      "totalQuests": 5,
       "allCleared": false,
       "dailyYield": 0,
       "streak": 1,
       "level": "02",
       "totalExp": 100,
-      "lastUpdated": "2026-10-05T23:23:19.022Z"
+      "lastUpdated": "2026-10-05T23:23:14.376Z"
     }
   },
   "history": [
