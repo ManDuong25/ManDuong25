@@ -4,14 +4,14 @@
     "role": "Software & AI Engineer",
     "level": "03",
     "baseExp": 100,
-    "totalExp": 250,
-    "currentExp": 0,
+    "totalExp": 300,
+    "currentExp": 50,
     "requiredExp": 200,
-    "expPercent": "0%",
-    "streak": 1,
+    "expPercent": "25%",
+    "streak": 2,
     "lastActiveDate": "2026-10-06",
-    "streakCountedForDate": null,
-    "lastUpdated": "2026-10-06T11:20:18.523Z"
+    "streakCountedForDate": "2026-10-06",
+    "lastUpdated": "2026-10-06T16:01:59.639Z"
   },
   "attributes": {
     "TECH": {
@@ -75,9 +75,9 @@
       ],
       "exp": "+50 EXP",
       "expValue": 50,
-      "done": false,
-      "completedAt": null,
-      "completedTime": null
+      "done": true,
+      "completedAt": "2026-10-06T16:01:59.639Z",
+      "completedTime": "23:01"
     },
     {
       "id": 4,
