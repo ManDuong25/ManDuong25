@@ -3,41 +3,41 @@
     "name": "DƯƠNG CÔNG MÃN",
     "role": "Software & AI Engineer",
     "level": "03",
-    "baseExp": 100,
+    "baseExp": 300,
     "totalExp": 300,
     "currentExp": 50,
     "requiredExp": 200,
     "expPercent": "25%",
     "streak": 2,
-    "lastActiveDate": "2026-10-06",
-    "streakCountedForDate": "2026-10-06",
-    "lastUpdated": "2026-10-06T16:01:59.639Z"
+    "lastActiveDate": "2026-10-07",
+    "streakCountedForDate": null,
+    "lastUpdated": "2026-10-06T21:35:54.790Z"
   },
   "attributes": {
     "TECH": {
-      "completed": 0,
+      "completed": 1,
       "missed": 0,
-      "score": 0
+      "score": 1
     },
     "INTELLECT": {
-      "completed": 1,
+      "completed": 2,
       "missed": 0,
       "score": 1
     },
     "VITALITY": {
-      "completed": 1,
+      "completed": 2,
       "missed": 0,
       "score": 1
     },
     "GRIT": {
-      "completed": 1,
+      "completed": 2,
       "missed": 0,
       "score": 1
     },
     "OUTPUT": {
-      "completed": 0,
+      "completed": 1,
       "missed": 0,
-      "score": 0
+      "score": 1
     }
   },
   "quests": [
@@ -50,9 +50,9 @@
       ],
       "exp": "+50 EXP",
       "expValue": 50,
-      "done": true,
-      "completedAt": "2026-10-06T00:06:54.233Z",
-      "completedTime": "07:06"
+      "done": false,
+      "completedAt": null,
+      "completedTime": null
     },
     {
       "id": 2,
@@ -63,9 +63,9 @@
       ],
       "exp": "+50 EXP",
       "expValue": 50,
-      "done": true,
-      "completedAt": "2026-10-06T11:20:06.072Z",
-      "completedTime": "18:20"
+      "done": false,
+      "completedAt": null,
+      "completedTime": null
     },
     {
       "id": 3,
@@ -75,9 +75,9 @@
       ],
       "exp": "+50 EXP",
       "expValue": 50,
-      "done": true,
-      "completedAt": "2026-10-06T16:01:59.639Z",
-      "completedTime": "23:01"
+      "done": false,
+      "completedAt": null,
+      "completedTime": null
     },
     {
       "id": 4,
@@ -87,9 +87,9 @@
       ],
       "exp": "+50 EXP",
       "expValue": 50,
-      "done": true,
-      "completedAt": "2026-10-06T11:20:18.523Z",
-      "completedTime": "18:20"
+      "done": false,
+      "completedAt": null,
+      "completedTime": null
     },
     {
       "id": 5,
