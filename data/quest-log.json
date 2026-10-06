@@ -2,9 +2,9 @@
   "meta": {
     "player": "DƯƠNG CÔNG MÃN",
     "timezone": "Asia/Ho_Chi_Minh",
-    "totalCompletedLifetime": 4,
+    "totalCompletedLifetime": 5,
     "createdAt": "2026-10-05T06:30:00.000Z",
-    "lastUpdated": "2026-10-06T11:20:06.072Z"
+    "lastUpdated": "2026-10-06T11:20:18.523Z"
   },
   "dailyLogs": {
     "2026-10-05": {
@@ -66,9 +66,9 @@
         {
           "id": 4,
           "title": "Build Project: 1 Feature",
-          "done": false,
-          "completedAt": null,
-          "completedTime": null,
+          "done": true,
+          "completedAt": "2026-10-06T11:20:18.523Z",
+          "completedTime": "18:20",
           "expValue": 50
         },
         {
@@ -80,14 +80,14 @@
           "expValue": 25
         }
       ],
-      "clearedCount": 2,
+      "clearedCount": 3,
       "totalQuests": 5,
       "allCleared": false,
-      "dailyYield": 100,
+      "dailyYield": 150,
       "streak": 1,
-      "level": "02",
-      "totalExp": 200,
-      "lastUpdated": "2026-10-06T11:20:06.072Z"
+      "level": "03",
+      "totalExp": 250,
+      "lastUpdated": "2026-10-06T11:20:18.523Z"
     }
   },
   "history": [
@@ -175,6 +175,16 @@
       "action": "QUEST_COMPLETED",
       "questId": 2,
       "questTitle": "Learning English for 4 hours",
+      "expEarned": 50
+    },
+    {
+      "id": "evt_1791285618524_4",
+      "timestamp": "2026-10-06T11:20:18.523Z",
+      "timeVN": "18:20:18",
+      "dateVN": "2026-10-06",
+      "action": "QUEST_COMPLETED",
+      "questId": 4,
+      "questTitle": "Build Project: 1 Feature",
       "expEarned": 50
     }
   ]
