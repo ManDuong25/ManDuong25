@@ -2,9 +2,9 @@
   "meta": {
     "player": "DƯƠNG CÔNG MÃN",
     "timezone": "Asia/Ho_Chi_Minh",
-    "totalCompletedLifetime": 3,
+    "totalCompletedLifetime": 4,
     "createdAt": "2026-10-05T06:30:00.000Z",
-    "lastUpdated": "2026-10-06T00:06:54.233Z"
+    "lastUpdated": "2026-10-06T11:20:06.072Z"
   },
   "dailyLogs": {
     "2026-10-05": {
@@ -50,9 +50,9 @@
         {
           "id": 2,
           "title": "Learning English for 4 hours",
-          "done": false,
-          "completedAt": null,
-          "completedTime": null,
+          "done": true,
+          "completedAt": "2026-10-06T11:20:06.072Z",
+          "completedTime": "18:20",
           "expValue": 50
         },
         {
@@ -80,14 +80,14 @@
           "expValue": 25
         }
       ],
-      "clearedCount": 1,
+      "clearedCount": 2,
       "totalQuests": 5,
       "allCleared": false,
-      "dailyYield": 50,
+      "dailyYield": 100,
       "streak": 1,
       "level": "02",
-      "totalExp": 150,
-      "lastUpdated": "2026-10-06T00:06:54.233Z"
+      "totalExp": 200,
+      "lastUpdated": "2026-10-06T11:20:06.072Z"
     }
   },
   "history": [
@@ -165,6 +165,16 @@
       "action": "QUEST_COMPLETED",
       "questId": 1,
       "questTitle": "Running 3 km",
+      "expEarned": 50
+    },
+    {
+      "id": "evt_1791285606073_2",
+      "timestamp": "2026-10-06T11:20:06.072Z",
+      "timeVN": "18:20:06",
+      "dateVN": "2026-10-06",
+      "action": "QUEST_COMPLETED",
+      "questId": 2,
+      "questTitle": "Learning English for 4 hours",
       "expEarned": 50
     }
   ]
