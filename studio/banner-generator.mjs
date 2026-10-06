@@ -255,12 +255,8 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
     ${fact(218, 238, 'DAILY COMPOUND', '1.01³⁶⁵ ≈ 37.8x', 'mono', colors.accentGreen, -0.5, -0.8, '14.5')}
   </g>
 
-  <!-- ============ COL3 — radar (axis x=${COL3_AXIS}); starts at y=${R_HEADER_RIGHT} aligned with letter D ============ -->
+  <!-- ============ COL3 — radar (axis x=${COL3_AXIS}) ============ -->
   <g>
-    <!-- header: left edge = DESIGN label left edge (${COL3_LEFT}); baseline = R_HEADER_RIGHT (${R_HEADER_RIGHT}) -->
-    <circle cx="${COL3_LEFT + 3.5}" cy="${R_HEADER_RIGHT - 4.5}" r="3.5" fill="${colors.accentGreen}" class="pulse-dot" />
-    <text x="${COL3_LEFT + 14}" y="${R_HEADER_RIGHT}" class="mono" font-size="11" font-weight="700" fill="${colors.textMuted}">ATTRIBUTES<tspan font-weight="400" fill="${colors.textSubtle}" dx="8.8">//</tspan><tspan fill="${colors.accentGreen}" font-weight="600" dx="8.8">SYS.READY</tspan></text>
-
     <g transform="translate(${COL3_AXIS}, ${RADAR_CY})">
       <polygon points="${ring(1)}" fill="none" stroke="${colors.gridLine}" stroke-width="1.2" />
       <polygon points="${ring(2 / 3)}" fill="none" stroke="${colors.gridLine}" stroke-width="0.9" stroke-dasharray="3 3" />
