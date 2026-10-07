@@ -3,39 +3,39 @@
     "name": "DƯƠNG CÔNG MÃN",
     "role": "Software & AI Engineer",
     "level": "04",
-    "baseExp": 300,
+    "baseExp": 450,
     "totalExp": 450,
     "currentExp": 0,
     "requiredExp": 250,
     "expPercent": "0%",
-    "streak": 2,
-    "lastActiveDate": "2026-10-07",
+    "streak": 0,
+    "lastActiveDate": "2026-10-08",
     "streakCountedForDate": null,
-    "lastUpdated": "2026-10-07T14:53:57.948Z"
+    "lastUpdated": "2026-10-07T21:56:49.188Z"
   },
   "attributes": {
     "TECH": {
       "completed": 1,
-      "missed": 0,
-      "score": 1
+      "missed": 1,
+      "score": 0.5
     },
     "INTELLECT": {
-      "completed": 2,
+      "completed": 3,
       "missed": 0,
       "score": 1
     },
     "VITALITY": {
-      "completed": 2,
+      "completed": 3,
       "missed": 0,
       "score": 1
     },
     "GRIT": {
-      "completed": 2,
+      "completed": 3,
       "missed": 0,
       "score": 1
     },
     "OUTPUT": {
-      "completed": 1,
+      "completed": 2,
       "missed": 0,
       "score": 1
     }
@@ -50,9 +50,9 @@
       ],
       "exp": "+50 EXP",
       "expValue": 50,
-      "done": true,
-      "completedAt": "2026-10-07T04:24:38.678Z",
-      "completedTime": "11:24"
+      "done": false,
+      "completedAt": null,
+      "completedTime": null
     },
     {
       "id": 2,
@@ -63,9 +63,9 @@
       ],
       "exp": "+50 EXP",
       "expValue": 50,
-      "done": true,
-      "completedAt": "2026-10-07T14:53:57.948Z",
-      "completedTime": "21:53"
+      "done": false,
+      "completedAt": null,
+      "completedTime": null
     },
     {
       "id": 3,
@@ -87,9 +87,9 @@
       ],
       "exp": "+50 EXP",
       "expValue": 50,
-      "done": true,
-      "completedAt": "2026-10-07T14:53:57.948Z",
-      "completedTime": "21:53"
+      "done": false,
+      "completedAt": null,
+      "completedTime": null
     },
     {
       "id": 5,
