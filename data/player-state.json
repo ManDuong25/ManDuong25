@@ -2,16 +2,16 @@
   "player": {
     "name": "DƯƠNG CÔNG MÃN",
     "role": "Software & AI Engineer",
-    "level": "03",
+    "level": "04",
     "baseExp": 300,
-    "totalExp": 350,
-    "currentExp": 100,
-    "requiredExp": 200,
-    "expPercent": "50%",
+    "totalExp": 450,
+    "currentExp": 0,
+    "requiredExp": 250,
+    "expPercent": "0%",
     "streak": 2,
     "lastActiveDate": "2026-10-07",
     "streakCountedForDate": null,
-    "lastUpdated": "2026-10-07T04:24:38.678Z"
+    "lastUpdated": "2026-10-07T14:53:57.948Z"
   },
   "attributes": {
     "TECH": {
@@ -63,9 +63,9 @@
       ],
       "exp": "+50 EXP",
       "expValue": 50,
-      "done": false,
-      "completedAt": null,
-      "completedTime": null
+      "done": true,
+      "completedAt": "2026-10-07T14:53:57.948Z",
+      "completedTime": "21:53"
     },
     {
       "id": 3,
@@ -87,9 +87,9 @@
       ],
       "exp": "+50 EXP",
       "expValue": 50,
-      "done": false,
-      "completedAt": null,
-      "completedTime": null
+      "done": true,
+      "completedAt": "2026-10-07T14:53:57.948Z",
+      "completedTime": "21:53"
     },
     {
       "id": 5,
