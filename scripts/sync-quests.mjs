@@ -138,18 +138,18 @@ export function processDateRollover(state, todayVN, questLog, options = {}) {
     state.player.streak = 0;
   }
 
-  // Evaluate Warrior Attributes (5 Pillars: TECH, INTELLECT, VITALITY, GRIT, OUTPUT)
-  const allAttributes = ['TECH', 'INTELLECT', 'VITALITY', 'GRIT', 'OUTPUT'];
+  // Evaluate Warrior Attributes (4 Pillars: INTELLECT, VITALITY, GRIT, OUTPUT)
+  const allAttributes = ['INTELLECT', 'VITALITY', 'GRIT', 'OUTPUT'];
   if (!state.attributes) {
     state.attributes = {
-      TECH: { completed: 0, missed: 0, score: 0.0 },
       INTELLECT: { completed: 0, missed: 0, score: 0.0 },
       VITALITY: { completed: 0, missed: 0, score: 0.0 },
       GRIT: { completed: 0, missed: 0, score: 0.0 },
       OUTPUT: { completed: 0, missed: 0, score: 0.0 }
     };
   }
-  // Drop deprecated SYSTEMS attribute if present
+  // Drop deprecated attributes if present
+  delete state.attributes.TECH;
   delete state.attributes.SYSTEMS;
 
   for (const attr of allAttributes) {
@@ -335,7 +335,6 @@ export function resetGitHubIssue() {
 
 - [ ] Running 3 km (+50 EXP) [#VITALITY, #GRIT]
 - [ ] Learning English for 4 hours (+50 EXP) [#INTELLECT, #GRIT]
-- [ ] LeetCode: 1 Pattern / 2 Problems (+50 EXP) [#TECH]
 - [ ] Build Project: 1 Feature (+50 EXP) [#OUTPUT]
 - [ ] Reading books for 30 mins (+25 EXP) [OPTIONAL]
 
@@ -343,12 +342,11 @@ export function resetGitHubIssue() {
 > 💡 *Check a box when you complete a task. GitHub Actions will auto-sync your EXP, level progression, and dynamic radar telemetry in real-time!*
 
 ---
-### 🧭 Thuộc tính Chiến Binh (5 Warrior Pillars)
-• **TECH**: Thuật toán (LeetCode: 1 pattern / 2 problems), cấu trúc dữ liệu, công nghệ AI.  
-• **OUTPUT**: Xây dựng & bàn giao sản phẩm thực tế (Build project: 1 feature cùng AI Agent).  
+### 🧭 Thuộc tính Chiến Binh (4 Warrior Pillars)
 • **INTELLECT**: Học tiếng Anh (4h), tài liệu kỹ thuật chuyên sâu.  
 • **VITALITY**: Thể chất, chạy bộ 3km, năng lượng và sức bền thể lực.  
 • **GRIT**: Duy trì chuỗi Streak, sự bền bỉ, tập trung cao độ không xao nhãng.  
+• **OUTPUT**: Xây dựng & bàn giao sản phẩm thực tế (Build project: 1 feature cùng AI Agent).  
 
 💡 *Lưu ý: Task [OPTIONAL] giúp tích thêm EXP cày cấp (+25 EXP), nếu không tích sẽ KHÔNG bị phạt đứt Streak hay tụt mạng nhện.*
 `;

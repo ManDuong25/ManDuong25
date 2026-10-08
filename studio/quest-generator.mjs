@@ -80,16 +80,11 @@ const defaultQuests = [
   },
   {
     id: 3,
-    title: 'LeetCode: 1 Pattern / 2 Problems',
-    exp: '+50 EXP', expValue: 50, done: false, completedTime: null
-  },
-  {
-    id: 4,
     title: 'Build Project: 1 Feature',
     exp: '+50 EXP', expValue: 50, done: false, completedTime: null
   },
   {
-    id: 5,
+    id: 4,
     title: 'Reading books for 30 mins',
     optional: true,
     exp: '+25 EXP', expValue: 25, done: false, completedTime: null

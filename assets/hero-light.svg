@@ -100,32 +100,27 @@
   <!-- ============ COL3 — radar (axis x=766) ============ -->
   <g>
     <g transform="translate(766, 168)">
-      <polygon points="0,-52 49.46,-16.07 30.57,42.07 -30.57,42.07 -49.46,-16.07" fill="none" stroke="rgba(31, 35, 40, 0.12)" stroke-width="1.2" />
-      <polygon points="0,-34.67 32.97,-10.71 20.38,28.05 -20.38,28.05 -32.97,-10.71" fill="none" stroke="rgba(31, 35, 40, 0.12)" stroke-width="0.9" stroke-dasharray="3 3" />
-      <polygon points="0,-17.33 16.49,-5.36 10.19,14.02 -10.19,14.02 -16.49,-5.36" fill="none" stroke="rgba(31, 35, 40, 0.12)" stroke-width="0.8" />
-      <line x1="0" y1="0" x2="0" y2="-54.08" stroke="rgba(31, 35, 40, 0.12)" stroke-width="1.2" />
-      <line x1="0" y1="0" x2="51.44" y2="-16.71" stroke="rgba(31, 35, 40, 0.12)" stroke-width="1.2" />
-      <line x1="0" y1="0" x2="31.79" y2="43.75" stroke="rgba(31, 35, 40, 0.12)" stroke-width="1.2" />
-      <line x1="0" y1="0" x2="-31.79" y2="43.75" stroke="rgba(31, 35, 40, 0.12)" stroke-width="1.2" />
-      <line x1="0" y1="0" x2="-51.44" y2="-16.71" stroke="rgba(31, 35, 40, 0.12)" stroke-width="1.2" />
+      <polygon points="0,-52 52,0 0,52 -52,0" fill="none" stroke="rgba(31, 35, 40, 0.12)" stroke-width="1.2" />
+      <polygon points="0,-34.67 34.67,0 0,34.67 -34.67,0" fill="none" stroke="rgba(31, 35, 40, 0.12)" stroke-width="0.9" stroke-dasharray="3 3" />
+      <polygon points="0,-17.33 17.33,0 0,17.33 -17.33,0" fill="none" stroke="rgba(31, 35, 40, 0.12)" stroke-width="0.8" />
+      <line x1="0" y1="-54.08" x2="0" y2="54.08" stroke="rgba(31, 35, 40, 0.12)" stroke-width="1.2" />
+      <line x1="-54.08" y1="0" x2="54.08" y2="0" stroke="rgba(31, 35, 40, 0.12)" stroke-width="1.2" />
 
       <!-- the real spider web: blooms dynamically from current attribute stats -->
       <g class="spider-bloom-group">
-        <polygon points="0,-26 49.46,-16.07 30.57,42.07 -30.57,42.07 -49.46,-16.07" fill="rgba(8, 96, 202, 0.12)" stroke="#0860ca" stroke-width="2" stroke-linejoin="round" filter="url(#softGlow)" />
-        <circle cx="0" cy="-26" r="2.6" fill="#0860ca" />
-        <circle cx="49.46" cy="-16.07" r="2.6" fill="#0860ca" />
-        <circle cx="30.57" cy="42.07" r="2.6" fill="#0860ca" />
-        <circle cx="-30.57" cy="42.07" r="2.6" fill="#0860ca" />
-        <circle cx="-49.46" cy="-16.07" r="2.6" fill="#0860ca" />
+        <polygon points="0,-52 52,0 0,52 -52,0" fill="rgba(8, 96, 202, 0.12)" stroke="#0860ca" stroke-width="2" stroke-linejoin="round" filter="url(#softGlow)" />
+        <circle cx="0" cy="-52" r="2.6" fill="#0860ca" />
+        <circle cx="52" cy="0" r="2.6" fill="#0860ca" />
+        <circle cx="0" cy="52" r="2.6" fill="#0860ca" />
+        <circle cx="-52" cy="0" r="2.6" fill="#0860ca" />
       </g>
 
       <circle cx="0" cy="0" r="3" fill="#17692e" class="pulse-dot" />
 
-      <text x="0" y="-61" class="mono" font-size="11" font-weight="700" text-anchor="middle" fill="#656d76">TECH</text>
-      <text x="57.46" y="-12.07" class="mono" font-size="11" font-weight="700" text-anchor="start" fill="#656d76">INTELLECT</text>
-      <text x="38.57" y="48.07" class="mono" font-size="11" font-weight="700" text-anchor="start" fill="#656d76">VITALITY</text>
-      <text x="-38.57" y="48.07" class="mono" font-size="11" font-weight="700" text-anchor="end" fill="#656d76">GRIT</text>
-      <text x="-57.46" y="-12.07" class="mono" font-size="11" font-weight="700" text-anchor="end" fill="#656d76">OUTPUT</text>
+      <text x="0" y="-61" class="mono" font-size="11" font-weight="700" text-anchor="middle" fill="#656d76">INTELLECT</text>
+      <text x="60" y="4" class="mono" font-size="11" font-weight="700" text-anchor="start" fill="#656d76">VITALITY</text>
+      <text x="0" y="70" class="mono" font-size="11" font-weight="700" text-anchor="middle" fill="#656d76">GRIT</text>
+      <text x="-60" y="4" class="mono" font-size="11" font-weight="700" text-anchor="end" fill="#656d76">OUTPUT</text>
     </g>
   </g>
 </svg>

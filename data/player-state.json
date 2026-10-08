@@ -8,17 +8,12 @@
     "currentExp": 0,
     "requiredExp": 250,
     "expPercent": "0%",
-    "streak": 0,
+    "streak": 2,
     "lastActiveDate": "2026-10-08",
     "streakCountedForDate": null,
-    "lastUpdated": "2026-10-08T00:52:43.833Z"
+    "lastUpdated": "2026-10-08T00:52:41.017Z"
   },
   "attributes": {
-    "TECH": {
-      "completed": 1,
-      "missed": 1,
-      "score": 0.5
-    },
     "INTELLECT": {
       "completed": 3,
       "missed": 0,
@@ -69,18 +64,6 @@
     },
     {
       "id": 3,
-      "title": "LeetCode: 1 Pattern / 2 Problems",
-      "tags": [
-        "TECH"
-      ],
-      "exp": "+50 EXP",
-      "expValue": 50,
-      "done": false,
-      "completedAt": null,
-      "completedTime": null
-    },
-    {
-      "id": 4,
       "title": "Build Project: 1 Feature",
       "tags": [
         "OUTPUT"
@@ -92,7 +75,7 @@
       "completedTime": null
     },
     {
-      "id": 5,
+      "id": 4,
       "title": "Reading books for 30 mins",
       "tags": [],
       "optional": true,

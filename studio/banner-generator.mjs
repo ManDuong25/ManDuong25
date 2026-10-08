@@ -84,33 +84,27 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
   const MONO = "ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace";
   const SANS = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
 
-  // ---- Radar geometry (pointy-top 5-pillar pentagon, vertices clockwise from top) ----
+  // ---- Radar geometry (4-pillar diamond, vertices clockwise from top) ----
   const R = RADAR_R;
-  const sin72 = +(Math.sin(72 * Math.PI / 180)).toFixed(4); // 0.9511
-  const cos72 = +(Math.cos(72 * Math.PI / 180)).toFixed(4); // 0.3090
-  const sin36 = +(Math.sin(36 * Math.PI / 180)).toFixed(4); // 0.5878
-  const cos36 = +(Math.cos(36 * Math.PI / 180)).toFixed(4); // 0.8090
 
-  // 5 vertices (Pentagon): TECH (0, top), INTELLECT (1, top-right), VITALITY (2, bottom-right), GRIT (3, bottom-left), OUTPUT (4, top-left)
+  // 4 vertices (Diamond): INTELLECT (0, top), VITALITY (1, right), GRIT (2, bottom), OUTPUT (3, left)
   const unit = [
-    [0, -1],
-    [sin72, -cos72],
-    [sin36, cos36],
-    [-sin36, cos36],
-    [-sin72, -cos72]
+    [0, -1],  // INTELLECT (top)
+    [1, 0],   // VITALITY (right)
+    [0, 1],   // GRIT (bottom)
+    [-1, 0]   // OUTPUT (left)
   ];
   const ring = (k) => unit.map(([x, y]) => `${+(x * R * k).toFixed(2)},${+(y * R * k).toFixed(2)}`).join(' ');
 
-  // Dynamic Warrior Attributes: TECH, INTELLECT, VITALITY, GRIT, OUTPUT (5 Pillars)
+  // Dynamic Warrior Attributes: INTELLECT, VITALITY, GRIT, OUTPUT (4 Pillars)
   const attrs = custom.attributes || {};
   const getScore = (key) => {
     const a = attrs[key];
     if (!a || typeof a.score !== 'number' || a.score <= 0) return 0.05;
     return Math.max(0.05, Math.min(1.0, a.score));
   };
-  // Order clockwise: TECH (0), INTELLECT (1), VITALITY (2), GRIT (3), OUTPUT (4)
+  // Order clockwise: INTELLECT (0), VITALITY (1), GRIT (2), OUTPUT (3)
   const STATS = [
-    getScore('TECH'),
     getScore('INTELLECT'),
     getScore('VITALITY'),
     getScore('GRIT'),
@@ -119,21 +113,20 @@ export function generateBannerSVG(theme = 'dark', custom = {}) {
   const statVerts = unit.map(([x, y], i) => [+(x * R * STATS[i]).toFixed(2), +(y * R * STATS[i]).toFixed(2)]);
   const STATS_PTS = statVerts.map(([x, y]) => `${x},${y}`).join(' ');
   const axisExt = 1.04;
-  const axes = unit.map(([x, y]) => {
-    const ax = +(x * R * axisExt).toFixed(2), ay = +(y * R * axisExt).toFixed(2);
-    return `<line x1="0" y1="0" x2="${ax}" y2="${ay}" stroke="${colors.gridLine}" stroke-width="1.2" />`;
-  }).join('\n      ');
+  const axes = [
+    `<line x1="0" y1="${-(R * axisExt).toFixed(2)}" x2="0" y2="${(R * axisExt).toFixed(2)}" stroke="${colors.gridLine}" stroke-width="1.2" />`,
+    `<line x1="${-(R * axisExt).toFixed(2)}" y1="0" x2="${(R * axisExt).toFixed(2)}" y2="0" stroke="${colors.gridLine}" stroke-width="1.2" />`
+  ].join('\n      ');
 
   // Axis labels: 11px caps, 9px clear of each vertex (NO parentheses, clean)
   const LBL_GAP = 9, LBL_DY = 4;
   const lbl = (txt, x, y, anchor) =>
     `<text x="${x}" y="${y}" class="mono" font-size="11" font-weight="700" text-anchor="${anchor}" fill="${colors.textSubtle}">${txt}</text>`;
   const labels = [
-    lbl('TECH', 0, -(R + LBL_GAP), 'middle'),
-    lbl('INTELLECT', +(unit[1][0] * R + 8).toFixed(2), +(unit[1][1] * R + LBL_DY).toFixed(2), 'start'),
-    lbl('VITALITY', +(unit[2][0] * R + 8).toFixed(2), +(unit[2][1] * R + 6).toFixed(2), 'start'),
-    lbl('GRIT', +(unit[3][0] * R - 8).toFixed(2), +(unit[3][1] * R + 6).toFixed(2), 'end'),
-    lbl('OUTPUT', +(unit[4][0] * R - 8).toFixed(2), +(unit[4][1] * R + LBL_DY).toFixed(2), 'end'),
+    lbl('INTELLECT', 0, -(R + LBL_GAP), 'middle'),
+    lbl('VITALITY', +(R + 8), LBL_DY, 'start'),
+    lbl('GRIT', 0, +(R + 18), 'middle'),
+    lbl('OUTPUT', -(R + 8), LBL_DY, 'end'),
   ].join('\n      ');
 
   // ---- Middle column: 3 fact blocks with synchronized baselines ----------
