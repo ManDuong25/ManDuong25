@@ -2,9 +2,9 @@
   "meta": {
     "player": "DƯƠNG CÔNG MÃN",
     "timezone": "Asia/Ho_Chi_Minh",
-    "totalCompletedLifetime": 9,
+    "totalCompletedLifetime": 10,
     "createdAt": "2026-10-05T06:30:00.000Z",
-    "lastUpdated": "2026-10-07T21:56:49.187Z"
+    "lastUpdated": "2026-10-08T09:44:37.358Z"
   },
   "dailyLogs": {
     "2026-10-05": {
@@ -156,9 +156,9 @@
         {
           "id": 2,
           "title": "Learning English for 4 hours",
-          "done": false,
-          "completedAt": null,
-          "completedTime": null,
+          "done": true,
+          "completedAt": "2026-10-08T09:44:37.358Z",
+          "completedTime": "16:44",
           "expValue": 50
         },
         {
@@ -178,14 +178,14 @@
           "expValue": 25
         }
       ],
-      "clearedCount": 0,
+      "clearedCount": 1,
       "totalQuests": 4,
       "allCleared": false,
-      "dailyYield": 0,
+      "dailyYield": 50,
       "streak": 2,
       "level": "04",
-      "totalExp": 450,
-      "lastUpdated": "2026-10-08T00:53:25.428Z"
+      "totalExp": 500,
+      "lastUpdated": "2026-10-08T09:44:37.358Z"
     }
   },
   "history": [
@@ -406,6 +406,16 @@
           "score": 1
         }
       }
+    },
+    {
+      "id": "evt_1791452677358_2",
+      "timestamp": "2026-10-08T09:44:37.358Z",
+      "timeVN": "16:44:37",
+      "dateVN": "2026-10-08",
+      "action": "QUEST_COMPLETED",
+      "questId": 2,
+      "questTitle": "Learning English for 4 hours",
+      "expEarned": 50
     }
   ]
 }

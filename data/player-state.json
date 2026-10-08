@@ -4,14 +4,14 @@
     "role": "Software & AI Engineer",
     "level": "04",
     "baseExp": 450,
-    "totalExp": 450,
-    "currentExp": 0,
+    "totalExp": 500,
+    "currentExp": 50,
     "requiredExp": 250,
-    "expPercent": "0%",
+    "expPercent": "20%",
     "streak": 2,
     "lastActiveDate": "2026-10-08",
     "streakCountedForDate": null,
-    "lastUpdated": "2026-10-08T00:53:25.428Z"
+    "lastUpdated": "2026-10-08T09:44:37.358Z"
   },
   "attributes": {
     "INTELLECT": {
@@ -58,9 +58,9 @@
       ],
       "exp": "+50 EXP",
       "expValue": 50,
-      "done": false,
-      "completedAt": null,
-      "completedTime": null
+      "done": true,
+      "completedAt": "2026-10-08T09:44:37.358Z",
+      "completedTime": "16:44"
     },
     {
       "id": 3,
