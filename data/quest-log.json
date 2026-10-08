@@ -4,7 +4,7 @@
     "timezone": "Asia/Ho_Chi_Minh",
     "totalCompletedLifetime": 10,
     "createdAt": "2026-10-05T06:30:00.000Z",
-    "lastUpdated": "2026-10-08T09:44:37.358Z"
+    "lastUpdated": "2026-10-08T22:01:14.551Z"
   },
   "dailyLogs": {
     "2026-10-05": {
@@ -416,6 +416,42 @@
       "questId": 2,
       "questTitle": "Learning English for 4 hours",
       "expEarned": 50
+    },
+    {
+      "id": "evt_1791496874551_rollover",
+      "timestamp": "2026-10-08T22:01:14.551Z",
+      "timeVN": "05:01:14",
+      "dateVN": "2026-10-09",
+      "action": "MIDNIGHT_RESET",
+      "fromDay": "2026-10-08",
+      "toDay": "2026-10-09",
+      "diffDays": 1,
+      "yesterdayYield": 50,
+      "allClearedYesterday": false,
+      "streakResult": 0,
+      "totalExpAfterRoll": 500,
+      "attributesSnapshot": {
+        "INTELLECT": {
+          "completed": 4,
+          "missed": 0,
+          "score": 1
+        },
+        "VITALITY": {
+          "completed": 3,
+          "missed": 1,
+          "score": 0.75
+        },
+        "GRIT": {
+          "completed": 3,
+          "missed": 1,
+          "score": 0.75
+        },
+        "OUTPUT": {
+          "completed": 2,
+          "missed": 1,
+          "score": 0.6667
+        }
+      }
     }
   ]
 }
