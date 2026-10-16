@@ -108,11 +108,11 @@
 
       <!-- the real spider web: blooms dynamically from current attribute stats -->
       <g class="spider-bloom-group">
-        <polygon points="0,-18.91 14.18,0 0,14.18 -10.4,0" fill="rgba(8, 96, 202, 0.12)" stroke="#0860ca" stroke-width="2" stroke-linejoin="round" filter="url(#softGlow)" />
-        <circle cx="0" cy="-18.91" r="2.6" fill="#0860ca" />
-        <circle cx="14.18" cy="0" r="2.6" fill="#0860ca" />
-        <circle cx="0" cy="14.18" r="2.6" fill="#0860ca" />
-        <circle cx="-10.4" cy="0" r="2.6" fill="#0860ca" />
+        <polygon points="0,-17.33 13,0 0,13 -9.45,0" fill="rgba(8, 96, 202, 0.12)" stroke="#0860ca" stroke-width="2" stroke-linejoin="round" filter="url(#softGlow)" />
+        <circle cx="0" cy="-17.33" r="2.6" fill="#0860ca" />
+        <circle cx="13" cy="0" r="2.6" fill="#0860ca" />
+        <circle cx="0" cy="13" r="2.6" fill="#0860ca" />
+        <circle cx="-9.45" cy="0" r="2.6" fill="#0860ca" />
       </g>
 
       <circle cx="0" cy="0" r="3" fill="#17692e" class="pulse-dot" />

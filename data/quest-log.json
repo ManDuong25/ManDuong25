@@ -4,7 +4,7 @@
     "timezone": "Asia/Ho_Chi_Minh",
     "totalCompletedLifetime": 10,
     "createdAt": "2026-10-05T06:30:00.000Z",
-    "lastUpdated": "2026-10-15T20:17:55.100Z"
+    "lastUpdated": "2026-10-16T19:54:37.443Z"
   },
   "dailyLogs": {
     "2026-10-05": {
@@ -702,6 +702,42 @@
           "completed": 2,
           "missed": 8,
           "score": 0.2
+        }
+      }
+    },
+    {
+      "id": "evt_1792180477444_rollover",
+      "timestamp": "2026-10-16T19:54:37.443Z",
+      "timeVN": "02:54:37",
+      "dateVN": "2026-10-17",
+      "action": "MIDNIGHT_RESET",
+      "fromDay": "2026-10-16",
+      "toDay": "2026-10-17",
+      "diffDays": 1,
+      "yesterdayYield": 0,
+      "allClearedYesterday": false,
+      "streakResult": 0,
+      "totalExpAfterRoll": 500,
+      "attributesSnapshot": {
+        "INTELLECT": {
+          "completed": 4,
+          "missed": 8,
+          "score": 0.3333
+        },
+        "VITALITY": {
+          "completed": 3,
+          "missed": 9,
+          "score": 0.25
+        },
+        "GRIT": {
+          "completed": 3,
+          "missed": 9,
+          "score": 0.25
+        },
+        "OUTPUT": {
+          "completed": 2,
+          "missed": 9,
+          "score": 0.1818
         }
       }
     }
