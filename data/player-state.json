@@ -9,30 +9,30 @@
     "requiredExp": 250,
     "expPercent": "20%",
     "streak": 0,
-    "lastActiveDate": "2026-10-31",
+    "lastActiveDate": "2026-11-01",
     "streakCountedForDate": null,
-    "lastUpdated": "2026-10-30T21:26:29.678Z"
+    "lastUpdated": "2026-10-31T20:26:14.827Z"
   },
   "attributes": {
     "INTELLECT": {
       "completed": 4,
-      "missed": 22,
-      "score": 0.1538
+      "missed": 23,
+      "score": 0.1481
     },
     "VITALITY": {
       "completed": 3,
-      "missed": 23,
-      "score": 0.1154
+      "missed": 24,
+      "score": 0.1111
     },
     "GRIT": {
       "completed": 3,
-      "missed": 23,
-      "score": 0.1154
+      "missed": 24,
+      "score": 0.1111
     },
     "OUTPUT": {
       "completed": 2,
-      "missed": 23,
-      "score": 0.08
+      "missed": 24,
+      "score": 0.0769
     }
   },
   "quests": [
