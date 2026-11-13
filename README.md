@@ -1,17 +1,17 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ManDuong25/ManDuong25/ea629cd4249e29c1c4fb8801db6caa616ceb04b6/assets/hero-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/ManDuong25/ManDuong25/ea629cd4249e29c1c4fb8801db6caa616ceb04b6/assets/hero-light.svg">
-    <img alt="DƯƠNG CÔNG MÃN" src="https://raw.githubusercontent.com/ManDuong25/ManDuong25/ea629cd4249e29c1c4fb8801db6caa616ceb04b6/assets/hero-dark.svg" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ManDuong25/ManDuong25/2bf66821a4392bb19f0d981f0a50f675a59183f4/assets/hero-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/ManDuong25/ManDuong25/2bf66821a4392bb19f0d981f0a50f675a59183f4/assets/hero-light.svg">
+    <img alt="DƯƠNG CÔNG MÃN" src="https://raw.githubusercontent.com/ManDuong25/ManDuong25/2bf66821a4392bb19f0d981f0a50f675a59183f4/assets/hero-dark.svg" width="100%">
   </picture>
 </p>
 
 <p align="center">
   <a href="https://github.com/ManDuong25/ManDuong25/issues/1">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ManDuong25/ManDuong25/ea629cd4249e29c1c4fb8801db6caa616ceb04b6/assets/quests-dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/ManDuong25/ManDuong25/ea629cd4249e29c1c4fb8801db6caa616ceb04b6/assets/quests-light.svg">
-      <img alt="Daily Operations // Tactical HUD" src="https://raw.githubusercontent.com/ManDuong25/ManDuong25/ea629cd4249e29c1c4fb8801db6caa616ceb04b6/assets/quests-dark.svg" width="100%">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ManDuong25/ManDuong25/2bf66821a4392bb19f0d981f0a50f675a59183f4/assets/quests-dark.svg">
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/ManDuong25/ManDuong25/2bf66821a4392bb19f0d981f0a50f675a59183f4/assets/quests-light.svg">
+      <img alt="Daily Operations // Tactical HUD" src="https://raw.githubusercontent.com/ManDuong25/ManDuong25/2bf66821a4392bb19f0d981f0a50f675a59183f4/assets/quests-dark.svg" width="100%">
     </picture>
   </a>
 </p>
